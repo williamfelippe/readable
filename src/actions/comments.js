@@ -21,7 +21,20 @@ export const removeComment = (commentId) => ({
 
 /**
  * 
- * @param {*} commentId 
+ * @param {string} postId 
+ */
+export const getComments = (postId) => {
+    return dispatch => {
+        return axios.get(`/posts/${postId}/comments`)
+            .then(response => {
+                console.log(response)
+            })
+    }
+}
+
+/**
+ * 
+ * @param {string} commentId 
  */
 export const getComment = (commentId) => {
     return dispatch => {
@@ -34,14 +47,11 @@ export const getComment = (commentId) => {
 
 /**
  * 
- * @param {*} id 
- * @param {*} body 
- * @param {*} author 
- * @param {*} parentId 
+ * @param {object} comment 
  */
-export const postComment = (id, body, author, parentId) => {
+export const postComment = (comment) => {
     return dispatch => {
-        return axios.post(`/comments`, {id, body, author, parentId})
+        return axios.post(`/comments`, comment)
             .then(response => {
                 console.log(response)
             })
@@ -50,13 +60,12 @@ export const postComment = (id, body, author, parentId) => {
 
 /**
  * 
- * @param {*} commentId 
- * @param {*} timestamp 
- * @param {*} body 
+ * @param {string} commentId 
+ * @param {object} comment 
  */
-export const putComment = (commentId, timestamp, body) => {
+export const putComment = (commentId, comment) => {
     return dispatch => {
-        return axios.put(`/comments/${commentId}`, {timestamp, body})
+        return axios.put(`/comments/${commentId}`, comment)
             .then(response => {
                 console.log(response)
             })
@@ -65,7 +74,7 @@ export const putComment = (commentId, timestamp, body) => {
 
 /**
  * 
- * @param {*} commentId 
+ * @param {string} commentId 
  */
 export const deleteComment = (commentId) => {
     return dispatch => {
@@ -78,7 +87,7 @@ export const deleteComment = (commentId) => {
 
 /**
  * 
- * @param {*} commentId 
+ * @param {string} commentId 
  */
 export const voteComment = (commentId) => {
     return dispatch => {

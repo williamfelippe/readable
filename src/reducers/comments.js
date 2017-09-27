@@ -12,7 +12,7 @@ const comments = (state = initialState, action) => {
     switch (action.type) {
         case SET_COMMENTS:
             const { comments } = action
-            return setComments(state, action)
+            return setComments(state, comments)
 
         case UPDATE_COMMENT:
             const { commentId, comment } = action

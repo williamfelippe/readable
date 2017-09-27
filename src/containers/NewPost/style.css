@@ -1,0 +1,7 @@
+.newpost {
+  max-width: 500px;
+  margin: 0 auto; }
+  .newpost .newpost__backbutton {
+    font-size: 20px; }
+  .newpost .newpost__description {
+    font-size: 18px; }

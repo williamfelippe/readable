@@ -10,17 +10,16 @@ import thunk from 'redux-thunk'
 import promise from 'redux-promise'
 import reducers from './store'
 
-import 'jquery'
-import 'materialize-css'
-
 import axios from 'axios'
 
 import App from './App'
 
 /**
- * Iniciando axios. Colocando uma base url para todos as requisições
+ * Colocando uma url base e adicionando token de autorização
+ * para todas as requisições
  */
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
+axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_AUTH_TOKEN
 
 /**
  * Configurando logger
@@ -39,10 +38,10 @@ const store = createStore(
 )
 
 ReactDOM.render(
-    <Router>
-        <Provider store={store}>
+    <Provider store={store}>
+        <Router>
             <App />
-        </Provider>
-    </Router>,
+        </Router>
+    </Provider>,
     document.getElementById('root')
 )
