@@ -1,0 +1,3 @@
+export const SET_COMMENTS = 'SET_COMMENTS'
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'

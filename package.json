@@ -1,0 +1,41 @@
+{
+  "name": "readable",
+  "version": "0.1.0",
+  "private": true,
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "jquery": "^3.2.1",
+    "materialize-css": "^0.100.2",
+    "moment": "^2.18.1",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-materialize": "^1.0.14",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "enzyme": "^3.0.0",
+    "jest": "^21.1.0",
+    "node-sass-chokidar": "^0.0.3",
+    "npm-run-all": "^4.1.1",
+    "react-scripts": "^1.0.13",
+    "react-test-renderer": "^15.6.2",
+    "redux-logger": "^3.0.6"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage",
+    "eject": "react-scripts eject"
+  }
+}
