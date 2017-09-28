@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Header, Footer } from './components/Global'
-import { Home, PostDetail, NewPost, NoMatch } from './containers'
+import { Home, Category, PostDetail, NewPost, NoMatch } from './containers'
 import 'spectre.css/dist/spectre.css'
 import 'spectre.css/dist/spectre-icons.css'
 import './assets/styles/index.css'
@@ -22,11 +22,10 @@ class App extends Component {
     }
 
     render() {
-
         const DashboardRoute = ({ component: Component, ...rest }) => (
             <Route {...rest} render={props => (
                 <div>
-                    <Header {...props} />
+                    <Header />
 
                     <main>
                         <Component {...props} />
@@ -39,7 +38,8 @@ class App extends Component {
 
         return (
             <Switch>
-                <DashboardRoute exact path='/:category?' component={Home} />
+                <DashboardRoute exact path='/' component={Home} />
+                <DashboardRoute exact path='/:category' component={Category} />
                 <DashboardRoute exact path='/post/new' component={NewPost} />
                 <DashboardRoute exact path='/post/edit/:postId' component={NewPost} />
                 <DashboardRoute path='/post/:postId' component={PostDetail} />

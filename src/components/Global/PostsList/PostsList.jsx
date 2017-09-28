@@ -13,9 +13,20 @@ const PostsList = ({ posts }) => {
     })
 
     return (
-        <ul>
-            {postsList}
-        </ul>
+        <div className="panel">
+            <div className="panel-header">
+                <div className="panel-title">
+                    <h4>
+                        Posts
+                    </h4>
+                </div>
+            </div>
+            <div className="panel-body">
+                <ul>
+                    {postsList}
+                </ul>
+            </div>
+        </div>
     )
 }
 

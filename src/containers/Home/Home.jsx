@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-    posts as postsActions,
-    categories as categoriesActions
-} from '../../actions'
-import {
-    Container,
-    Columns,
-    Col
-} from '../../components/Spectre'
+import { Container, Columns, Col } from '../../components/Spectre'
+import { PostsList, CategoriesList, EmptyState } from '../../components/Global'
+import { posts as postsActions, categories as categoriesActions } from '../../actions'
 //import './style.css'
 
 class Home extends Component {
@@ -21,11 +15,22 @@ class Home extends Component {
     }
 
     render() {
+        const { categories } = this.props
+
         return (
             <Container grid="lg">
                 <Columns>
+                    <Col xs={8}>
+                        <PostsList posts={[]} />
+                    </Col>
+                    <Col xs={4}>
+                        <CategoriesList categories={[]} />
+                    </Col>
+                </Columns>
+
+                <Columns>
                     <Col xs={12}>
-                        Alright, alright, alright
+                        {/*<EmptyState />*/}
                     </Col>
                 </Columns>
             </Container>
@@ -34,7 +39,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-
+    
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,0 +1,14 @@
+.nomatch {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; }
+  .nomatch .nomatch__title {
+    font-size: 250px;
+    margin-bottom: 20px; }
+  .nomatch .nomatch__description {
+    font-size: 28px;
+    margin-bottom: 40px; }
+  .nomatch .nomatch__button {
+    font-size: 24px !important; }

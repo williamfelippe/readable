@@ -1,5 +1,10 @@
 body {
-  font-family: 'Open Sans', sans-serif; }
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px; }
+
+main {
+  flex: 1 0 auto;
+  padding-bottom: 60px; }
 
 h1,
 h2,

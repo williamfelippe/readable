@@ -8,10 +8,10 @@ const Col = ({ children, xs, sm, md, lg, xl, hide, show, className }) => {
      */
     const cols = [
         { value: xs, class: '' },
-        { value: sm, class: 'sm' },
-        { value: md, class: 'md' },
-        { value: lg, class: 'lg' },
-        { value: xl, class: 'xl' }
+        { value: sm, class: 'sm-' },
+        { value: md, class: 'md-' },
+        { value: lg, class: 'lg-' },
+        { value: xl, class: 'xl-' }
     ]
 
     /**

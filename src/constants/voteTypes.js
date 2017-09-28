@@ -1,2 +1,2 @@
-const UP_VOTE = "upVote"
-const DOWN_VOTE = "downVote"
+export const UP_VOTE = "upVote"
+export const DOWN_VOTE = "downVote"

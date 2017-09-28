@@ -1,0 +1,10 @@
+.header {
+  border-bottom: #bf8bff solid thin;
+  padding: 20px 0;
+  margin-bottom: 40px; }
+  .header .header__title {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase; }
