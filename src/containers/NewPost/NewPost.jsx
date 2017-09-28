@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Columns, Col, Icon, Button, Input, TextArea, Select } from '../../components/Spectre'
 import { posts as postsActions } from '../../actions'
+import {
+    Container,
+    Columns,
+    Col,
+    Icon,
+    Button,
+    LinkButton,
+    Input,
+    TextArea,
+    Select
+} from '../../components/Spectre'
 import uuidv4 from 'uuid/v4'
 import './style.css'
 
@@ -80,11 +90,13 @@ class NewPost extends Component {
         const isEditing = (postId && postId !== undefined)
 
         return (
-            <Container>
+            <Container grid="lg">
                 <Columns>
                     <Col xs={12}>
                         <div className="newpost">
-                            <Icon icon="back" className="newpost__backbutton" />
+                            <LinkButton to="/" kind="link" className="newpost__backbutton">
+                                <Icon icon="back" />
+                            </LinkButton>
 
                             <h1 className="ta-c">
                                 Add post
@@ -99,22 +111,38 @@ class NewPost extends Component {
 
                             <form onSubmit={this.handleSubmit.bind(this)} className="newpost__form">
 
-                                <Input id="title" placeholder="Title" />
-
-                                {!isEditing && <Input id="author" placeholder="Author" />}
-
-                                <TextArea id="message" placeholder="Message" />
+                                <Input
+                                    id="title"
+                                    placeholder="Title" />
 
                                 {
-                                    !isEditing && <Select placeholder="Choose a category" options={[
-                                        { value: 'teste', text: 'Teste' },
-                                        { value: 'teste2', text: 'Teste2' },
-                                        { value: 'teste3', text: 'Teste3' }
-                                    ]} />
+                                    !isEditing &&
+                                    <Input
+                                        id="author"
+                                        placeholder="Author" />
                                 }
 
-                                <Button type="submit">
-                                    Add
+                                <TextArea
+                                    id="message"
+                                    placeholder="Message" />
+
+                                {
+                                    !isEditing &&
+                                    <Select
+                                        placeholder="Choose a category"
+                                        options={[
+                                            { value: 'teste', text: 'Teste' },
+                                            { value: 'teste2', text: 'Teste2' },
+                                            { value: 'teste3', text: 'Teste3' }
+                                        ]} />
+                                }
+
+                                <Button
+                                    type="submit"
+                                    size="lg"
+                                    kind="primary"
+                                    className="newpost_button">
+                                    Add post
                                 </Button>
                             </form>
                         </div>

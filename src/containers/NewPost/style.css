@@ -1,7 +1,14 @@
 .newpost {
-  max-width: 500px;
-  margin: 0 auto; }
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 40px; }
   .newpost .newpost__backbutton {
-    font-size: 20px; }
+    font-size: 20px;
+    position: absolute;
+    top: 55px; }
   .newpost .newpost__description {
-    font-size: 18px; }
+    font-size: 18px;
+    text-align: justify;
+    margin: 40px 0; }
+  .newpost .newpost_button {
+    margin-top: 40px; }

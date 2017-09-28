@@ -1,12 +1,22 @@
 .newpost {
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
+    padding-top: 40px; 
 
     .newpost__backbutton {
         font-size: 20px;
+        position: absolute;
+        top: 55px;
     }
 
     .newpost__description {
         font-size: 18px;
+        text-align: justify;
+
+        margin: 40px 0;
+    }
+
+    .newpost_button {
+        margin-top: 40px;
     }
 }
