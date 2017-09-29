@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Header, Footer } from './components/Global'
+import { RemovePostModal } from './components/Posts'
 import { Home, Category, PostDetail, NewPost, NoMatch } from './containers'
 import 'spectre.css/dist/spectre.css'
 import 'spectre.css/dist/spectre-icons.css'
@@ -14,7 +15,8 @@ class App extends Component {
         const currentLocation = this.props.location
 
         /**
-         * 
+         * Retorna o rolagem da página para o topo ao
+         * trocar de rota
          */
         if (currentLocation !== prevLocation) {
             window.scrollTo(0, 0)
@@ -24,11 +26,12 @@ class App extends Component {
     render() {
         const DashboardRoute = ({ component: Component, ...rest }) => (
             <Route {...rest} render={props => (
-                <div>
+                <div className="app">
                     <Header />
 
                     <main>
                         <Component {...props} />
+                        <RemovePostModal />
                     </main>
 
                     <Footer />

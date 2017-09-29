@@ -4,6 +4,19 @@ import { Container, Columns, Col } from '../../components/Spectre'
 import { PostsList } from '../../components/Global'
 import { posts as postsActions } from '../../actions'
 
+const posts = [
+    {
+        id: '8xf0y6ziyjabvozdd253nd',
+        timestamp: 1467166872634,
+        title: 'Udacity is the best place to learn React',
+        body: 'Everyone says so after all.',
+        author: 'William Felippe',
+        category: 'react',
+        voteScore: 6,
+        deleted: false
+    }   
+]
+
 class Category extends Component {
 
     componentDidMount() {
@@ -14,17 +27,16 @@ class Category extends Component {
     }
 
     render() {
-        const { category } = this.props
+        const { match } = this.props
+        const { category } = match.params
 
         return (
             <Container grid="lg">
                 <Columns>
-                    <Col xs={12}>
-                        <h1>
-                            Category: {category}
-                        </h1>
-
-                        <PostsList posts={[]} />
+                    <Col xs={8}>
+                        <PostsList 
+                            title={`Category: ${category}`} 
+                            posts={posts} />
                     </Col>
                 </Columns>
             </Container>

@@ -9,5 +9,12 @@
         font-size: 20px;
         text-align: center;
         text-transform: uppercase;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            text-decoration: none
+        }
     }
 }

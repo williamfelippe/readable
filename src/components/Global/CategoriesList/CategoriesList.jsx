@@ -8,7 +8,7 @@ const CategoriesList = ({ categories }) => {
         return (
             <li className="menu-item" key={name}>
                 <NavLink exact to={`/${path}`}>
-                    {name}
+                    {name.charAt(0).toLocaleUpperCase()}{name.slice(1)}
                 </NavLink>
             </li>
         )

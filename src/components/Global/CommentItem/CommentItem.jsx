@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Button, Icon } from '../../Spectre'
+import './style.css'
 
 const CommentItem = ({ comment, voteComment }) => {
 
     const { author, body, timestamp } = comment
 
     return (
-        <div className="tile">
+        <div className="tile commentItem">
             <div className="tile-icon">
                 <figure className="avatar" data-initial="TO"></figure>
             </div>
@@ -17,7 +19,19 @@ const CommentItem = ({ comment, voteComment }) => {
                 <p className="tile-subtitle">
                     {body}
                 </p>
-                <small>{timestamp}</small>
+
+                <ul className="commentItem__footer">
+                    <li className="commentItem__footer__item">
+                        <Button kind="link">
+                            <Icon icon="emoji" />
+                        </Button>
+                    </li>
+                    <li className="commentItem__footer__item">
+                        <small>
+                            {timestamp}
+                        </small>
+                    </li>
+                </ul>
             </div>
         </div>
     )

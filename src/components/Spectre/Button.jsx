@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Button = ({ children, type, className, disabled, kind, size, loading }) => {
+const Button = ({ children, type, className, disabled, kind, size, loading, ...rest }) => {
     return (
         <button className={`btn ${className} ${disabled ? 'disabled' : ''}
             ${size ? `btn-${size}` : ''} ${kind ? `btn-${kind}` : ''} 
             ${loading ? 'loading' : ''}`}
-            type={type} >
+            type={type} {...rest}>
             {children}
         </button>
     )

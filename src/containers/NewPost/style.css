@@ -1,11 +1,12 @@
 .newpost {
+  position: relative;
   max-width: 600px;
   margin: 0 auto;
   padding-top: 40px; }
   .newpost .newpost__backbutton {
     font-size: 20px;
     position: absolute;
-    top: 55px; }
+    margin-top: 10px; }
   .newpost .newpost__description {
     font-size: 18px;
     text-align: justify;

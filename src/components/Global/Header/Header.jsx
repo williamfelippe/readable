@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, Columns, Col, LinkButton, Icon } from '../../Spectre'
+import { NavLink } from 'react-router-dom'
+import { Container, Columns, Col, LinkButton } from '../../Spectre'
 import './style.css'
 
 const Header = () => {
@@ -8,13 +9,16 @@ const Header = () => {
             <Container grid="lg">
                 <Columns>
                     <Col xs={6}>
-                        <span className="header__title">
+                        <NavLink to="/" exact className="header__title">
                             Readable
-                        </span>
+                        </NavLink>
                     </Col>
                     <Col xs={6}>
-                        <LinkButton to="/post/new" className="float-right">
-                            Add post <Icon icon="plus" />
+                        <LinkButton
+                            kind="primary"
+                            to="/post/new"
+                            className="float-right">
+                            Add post
                         </LinkButton>
                     </Col>
                 </Columns>

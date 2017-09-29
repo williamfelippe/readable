@@ -1,0 +1,10 @@
+.commentItem {
+    .commentItem__footer {
+        list-style: none;
+        padding: 0;
+
+        .commentItem__footer__item {
+            display: inline-block;
+        }
+    }
+}

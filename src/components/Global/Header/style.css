@@ -8,3 +8,5 @@
     font-size: 20px;
     text-align: center;
     text-transform: uppercase; }
+    .header .header__title:hover, .header .header__title:focus, .header .header__title:active, .header .header__title.active {
+      text-decoration: none; }

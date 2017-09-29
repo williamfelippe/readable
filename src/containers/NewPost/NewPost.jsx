@@ -142,7 +142,7 @@ class NewPost extends Component {
                                     size="lg"
                                     kind="primary"
                                     className="newpost_button">
-                                    Add post
+                                    Save
                                 </Button>
                             </form>
                         </div>

@@ -1,0 +1,89 @@
+.postItem {
+    display: block;
+    padding-bottom: 10px;
+
+    .postItem__avatar {
+        margin: 0 20px 10px 15px;
+    }
+
+    .postItem__author {
+        display: block;
+
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .postItem__title {
+        color: #333;
+        font-size: 16px;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 700;
+
+        margin-top: 5px;
+
+        .postItem__title__date {
+            font-weight: 300;
+            font-size: 12px;
+
+            margin-left: 5px;
+            color: darken(#bfbfbf, 5%);
+
+            vertical-align: sub;
+        }
+    }
+
+    .postItem__body {
+        color: #808080;
+        outline: none;
+
+        &:hover {
+            color: #bf8bff;
+        }
+        
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+
+    .postItem__rest {
+        margin: 0;
+        list-style: none;
+
+        .postItem__rest__item {
+            display: inline-block;
+
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+
+            &:last-child {
+                float: right;
+            }
+
+            .postItem__rest__item__label {
+                border-radius: 20px;
+                
+                padding: 5px 10px;
+                margin-right: 20px;
+
+                font-size: 12px;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .postItem__voteIcon {
+        position: relative;
+        z-index: 2;
+    }
+
+    .postItem__voteScore {
+        font-size: 26px;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 700;
+        text-align: center;
+
+        margin: 0;
+    }
+}
