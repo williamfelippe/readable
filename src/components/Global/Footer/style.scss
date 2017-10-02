@@ -1,4 +1,16 @@
 .footer {
     background-color: #725399;
-    height: 200px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+
+    .footer__title {
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        text-transform: uppercase;
+        color: #fff;
+
+        float: right;
+    }
 }

@@ -1,5 +1,47 @@
-.postdetail {
-    .postdetail__body {
-        margin: 40px 0;
+.postDetail {    
+    .postDetail__category {
+        border-radius: 20px;
+        
+        padding: 5px 10px;
+        margin-right: 20px;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        vertical-align: super;
+    }
+
+    .postDetail__date {
+        font-weight: 300;
+        font-size: 14px;
+
+        margin-left: 5px;
+        color: darken(#bfbfbf, 5%);
+    }
+
+    .postDetail__info {
+        display: flex;
+        flex-direction: row;
+
+        margin-bottom: 25px;
+
+        .postDetail__info__body {
+            margin: 40px 0;
+            flex: 8;
+        }
+
+        .postDetail__info__voteButtons {
+            flex: 1;
+            text-align: center;
+
+            .postDetail__info__voteButtons__voteScore {
+                font-size: 26px;
+                font-family: 'Ubuntu', sans-serif;
+                font-weight: 700;
+                text-align: center;
+        
+                margin: 0;
+            }
+        }
     }
 }

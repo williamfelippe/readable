@@ -1,0 +1,10 @@
+.commentForm {
+  margin: 20px 16px; }
+  .commentForm:after {
+    clear: both;
+    display: block;
+    content: " "; }
+  .commentForm .commentForm__textArea {
+    resize: none; }
+  .commentForm .commentForm__button {
+    float: right; }

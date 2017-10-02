@@ -1,8 +1,5 @@
 import axios from 'axios'
-
-export const SET_COMMENTS = 'SET_COMMENTS'
-export const UPDATE_COMMENT = 'UPDATE_COMMENT'
-export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+import { SET_COMMENTS, UPDATE_COMMENT, REMOVE_COMMENT } from '../constants/actionTypes'
 
 export const setComments = (comments) => ({
     type: SET_COMMENTS,
@@ -27,6 +24,7 @@ export const getComments = (postId) => {
     return dispatch => {
         return axios.get(`/posts/${postId}/comments`)
             .then(response => {
+                //const { comments } = response.data
                 console.log(response)
             })
     }
@@ -40,6 +38,7 @@ export const getComment = (commentId) => {
     return dispatch => {
         return axios.get(`/comments/${commentId}`)
             .then(response => {
+                //const { comment } = response.data
                 console.log(response)
             })
     }

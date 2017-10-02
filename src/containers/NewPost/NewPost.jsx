@@ -17,6 +17,13 @@ import './style.css'
 
 class NewPost extends Component {
 
+    constructor() {
+        super()
+        this.state = {
+            post: {}
+        }
+    }
+
     componentDidMount() {
         this.populatePost()
     }
@@ -32,6 +39,9 @@ class NewPost extends Component {
 
         if (postId && postId !== undefined) {
             getPost(postId)
+                .then(() => {
+
+                })
         }
     }
 
@@ -43,7 +53,6 @@ class NewPost extends Component {
      */
     handleSubmit(event) {
         event.preventDefault()
-
         this.sendPost()
     }
 

@@ -1,28 +1,32 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { comments as commentsActions } from '../../../actions'
+import { comments as commentsActions } from '../../../actions/index'
 import { CommentItem, CommentForm } from '../'
 
 const comments = [
     {
         author: 'Tony Stark',
         body: 'The Strategic Homeland Intervention, Enforcement, and Logistics Division...',
-        timestamp: Date.now
+        timestamp: Date.now(),
+        voteScore: 2
     },
     {
         author: 'Bruce Banner',
         body: 'The Strategic Homeland Intervention, Enforcement, and Logistics Division...',
-        timestamp: Date.now
+        timestamp: Date.now(),
+        voteScore: -4
     },
     {
         author: 'Thor Odinson',
         body: 'The Strategic Homeland Intervention, Enforcement, and Logistics Division...',
-        timestamp: Date.now
+        timestamp: Date.now(),
+        voteScore: 10
     },
     {
         author: 'Steve Rogers',
         body: 'The Strategic Homeland Intervention, Enforcement, and Logistics Division...',
-        timestamp: Date.now
+        timestamp: Date.now(),
+        voteScore: 1
     }
 ]
 
@@ -46,14 +50,14 @@ class CommentsList extends Component {
         return (
             <div className="panel">
                 <div className="panel-header">
-                    <div className="panel-title h6">
-                        Comments
+                    <div className="panel-title h4">
+                        Comments:
                     </div>
                 </div>
                 <div className="panel-body">
-                    {commentsList}
+                    <CommentForm postComment={postComment} />
                     <div className="panel-footer">
-                        <CommentForm postComment={postComment} />
+                        {commentsList}
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import { LinkButton, Button, Icon } from '../../Spectre'
+import { LinkButton, Button, Icon } from '../../Spectre/index'
 import { UP_VOTE, DOWN_VOTE } from '../../../constants/voteTypes'
 import getInitials from '../../../utils/getInitials'
 import formatDate from '../../../utils/formatDate'
@@ -47,18 +47,29 @@ const PostItem = ({ post, votePost }) => {
 
                 <ul className="postItem__rest">
                     <li className="postItem__rest__item">
-                        <LinkButton kind="link" to={`/post/edit/${id}`}>
+                        <LinkButton
+                            kind="link"
+                            to={`/post/edit/${id}`}
+                            className="tooltip"
+                            data-tooltip="Edit post">
                             <Icon icon="edit" />
                         </LinkButton>
                     </li>
                     <li className="postItem__rest__item">
-                        <Button kind="link" onClick={() => console.log('Vou deletei')}>
+                        <Button
+                            kind="link"
+                            onClick={() => console.log('Vou deletei')}
+                            className="tooltip"
+                            data-tooltip="Delete post">
                             <Icon icon="delete" />
                         </Button>
                     </li>
                     <li className="postItem__rest__item">
-                        <Button kind="link" onClick={() => console.log('Vou comentei')}>
-                            <Icon icon="message" /> <small> 10 comments</small>
+                        <Button
+                            kind="link"
+                            className="tooltip"
+                            data-tooltip="Comments">
+                            <Icon icon="message" /> <small>10 comments</small>
                         </Button>
                     </li>
                     <li className="postItem__rest__item">

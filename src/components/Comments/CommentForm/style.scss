@@ -1,0 +1,18 @@
+.commentForm {
+    margin: 20px 16px;
+
+    &:after {
+        clear: both;
+        display: block;
+
+        content: " ";
+    }
+
+    .commentForm__textArea {
+        resize: none;
+    }
+
+    .commentForm__button {
+        float: right;
+    }
+}

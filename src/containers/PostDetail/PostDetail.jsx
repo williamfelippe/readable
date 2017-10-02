@@ -1,10 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { CommentsList } from '../../components/Global'
-import { Container, Columns, Col } from '../../components/Spectre'
+import { CommentsList } from '../../components/Comments'
+import { Container, Columns, Col, Button, Icon } from '../../components/Spectre'
 import { posts as postsActions, comments as commentsActions } from '../../actions'
-//import { UP_VOTE, DOWN_VOTE } from '../../constants/voteTypes'
+import { UP_VOTE, DOWN_VOTE } from '../../constants/voteTypes'
+import formatDate from '../../utils/formatDate'
 import './style.css'
+
+const comment = {
+    id: '6ni6ok3ym7mf1p33lnez',
+    timestamp: 1468479767190,
+    title: 'Learn Redux in 10 minutes!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'José',
+    category: 'redux',
+    voteScore: -5,
+    deleted: false
+}
 
 class PostDetail extends Component {
 
@@ -30,31 +42,45 @@ class PostDetail extends Component {
     }
 
     render() {
+        const { votePost, /*comment*/ } = this.props
+        const { timestamp, title, body, author, category, voteScore } = comment
+
         return (
-            <Container grid="lg">
+            <Container grid="md">
                 <Columns>
                     <Col xs={12}>
-                        <div className="postdetail">
+                        <div className="postDetail">
                             <h1>
-                                Maecenas aliquet, nisi ac iaculis convallis
+                                {title} <span className="label label-primary postDetail__category">
+                                    {category}
+                                </span>
                             </h1>
 
                             <h4>
-                                Posted by William Silva
+                                Posted by {author} <span className="postDetail__date">
+                                    {formatDate(timestamp)}
+                                </span>
                             </h4>
 
-                            <p className="postdetail__body">
-                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-                                cubilia Curae; Integer tempus tempus orci, vitae ultrices risus finibus ac.
-                                Vestibulum fermentum, dolor eget condimentum eleifend, odio purus efficitur
-                                erat, non viverra libero metus sit amet felis. Suspendisse luctus orci eget
-                                dui sollicitudin condimentum. Pellentesque non dolor ut ex ornare pellentesque
-                                sit amet in quam. Nulla egestas finibus mi. Fusce vehicula sapien vel mi
-                                consectetur sodales. Vestibulum fermentum, turpis eu fringilla ultricies,
-                                arcu ex aliquet augue, at molestie ante enim eget augue. Suspendisse finibus
-                                nibh nec eros aliquam pulvinar. Duis aliquet orci non nisi posuere, et luctus
-                                nibh pellentesque.
-                            </p>
+                            <div className="postDetail__info">
+                                <p className="postDetail__info__body">
+                                    {body}
+                                </p>
+
+                                <div className="postDetail__info__voteButtons">
+                                    <Button kind="link" className="postDetail__info__voteButtons__voteIcon"
+                                        onClick={() => votePost(UP_VOTE)}>
+                                        <Icon icon="arrow-up" />
+                                    </Button>
+                                    <p className="postDetail__info__voteButtons__voteScore">
+                                        {voteScore}
+                                    </p>
+                                    <Button kind="link" className="postDetail__info__voteButtons__voteIcon"
+                                        onClick={() => votePost(DOWN_VOTE)}>
+                                        <Icon icon="arrow-down" />
+                                    </Button>
+                                </div>
+                            </div>
 
                             <CommentsList />
                         </div>

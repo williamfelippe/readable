@@ -11,15 +11,12 @@ const initialState = {
 const comments = (state = initialState, action) => {
     switch (action.type) {
         case SET_COMMENTS:
-            const { comments } = action
-            return setComments(state, comments)
+            return setComments(state, action.comments)
 
         case UPDATE_COMMENT:
-            const { commentId, comment } = action
-            return updateComment(state, commentId, comment)
+            return updateComment(state, action.commentId, action.comment)
 
         case REMOVE_COMMENT:
-            //const { commentId } = action
             return removeComment(state, action.commentId)
 
         default:

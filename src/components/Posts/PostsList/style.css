@@ -9,5 +9,5 @@
   margin-left: 0;
   list-style: none; }
   .postList .postList__item:not(:last-child) {
-    border-bottom: solid thin #f2f2f2;
+    border-bottom: solid thin #d9d9d9;
     margin-bottom: 40px; }

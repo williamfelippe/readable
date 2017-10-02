@@ -11,7 +11,8 @@ const LinkButton = ({
     size,
     loading,
     exact,
-    external
+    external,
+    ...rest
 }) => {
 
     let link = null
@@ -19,14 +20,14 @@ const LinkButton = ({
     if (external) {
         link = <a href={to} target="_blank" className={`btn ${className} ${disabled ? 'disabled' : ''}
                 ${size ? `btn-${size}` : ''} ${kind ? `btn-${kind}` : ''} 
-                ${loading ? 'loading' : ''}`}>
+                ${loading ? 'loading' : ''}`} {...rest}>
             {children}
         </a>
     }
     else {
         link = <NavLink to={to} exact={exact} className={`btn ${className} ${disabled ? 'disabled' : ''}
                 ${size ? `btn-${size}` : ''} ${kind ? `btn-${kind}` : ''} 
-                ${loading ? 'loading' : ''}`}>
+                ${loading ? 'loading' : ''}`} {...rest}>
             {children}
         </NavLink>
     }

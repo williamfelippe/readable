@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Columns, Col } from '../../components/Spectre'
-import { PostsList } from '../../components/Global'
+import { PostsList } from '../../components/Posts'
 import { posts as postsActions } from '../../actions'
 
 const posts = [

@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Columns, Col } from '../../components/Spectre'
-import { PostsList, CategoriesList, EmptyState } from '../../components/Global'
+import { PostsList } from '../../components/Posts'
+import { CategoriesList/*, EmptyState*/ } from '../../components/Global'
 import { posts as postsActions, categories as categoriesActions } from '../../actions'
-
-const categories = [
-    { name: 'react', path: 'react' },
-    { name: 'redux', path: 'redux' },
-    { name: 'udacity', path: 'udacity' },
-    { name: 'programming', path: 'programming' }
-]
 
 const posts = [
     {
@@ -31,6 +25,36 @@ const posts = [
         category: 'redux',
         voteScore: -5,
         deleted: false
+    },
+    {
+        id: '6ni6ok3ym7mf1p33lnec',
+        timestamp: 1468479767190,
+        title: 'Learn Redux in 10 minutes!',
+        body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+        author: 'Jandira Oliveira',
+        category: 'redux',
+        voteScore: 3,
+        deleted: false
+    },
+    {
+        id: '6ni6ok3ym7mf1p33lnea',
+        timestamp: 1468479767190,
+        title: 'Learn Redux in 10 minutes!',
+        body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+        author: 'Ragnar Lothbrook',
+        category: 'redux',
+        voteScore: -2,
+        deleted: false
+    },
+    {
+        id: '6ni6ok3ym7mf1p33lneb',
+        timestamp: 1468479767190,
+        title: 'Learn Redux in 10 minutes!',
+        body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+        author: 'Bjorn Ironside',
+        category: 'redux',
+        voteScore: 10,
+        deleted: false
     }
 ]
 
@@ -44,7 +68,7 @@ class Home extends Component {
     }
 
     render() {
-        const { /*categories, empty, loading, error,*/ votePost } = this.props
+        const { categories, /*empty, loading, error,*/ votePost } = this.props
 
         return (
             <Container grid="lg">
@@ -68,7 +92,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-
+    categories: state.categories.categories
 })
 
 const mapDispatchToProps = dispatch => ({

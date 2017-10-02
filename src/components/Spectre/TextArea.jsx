@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TextArea = ({ id, label, placeholder, labelClassName, inputClassName }) => {
+const TextArea = ({ id, label, placeholder, labelClassName, inputClassName, ...rest }) => {
     return (
         <div className="form-group">
             {
@@ -10,7 +10,11 @@ const TextArea = ({ id, label, placeholder, labelClassName, inputClassName }) =>
                 </label>
             }
 
-            <textarea id={id} className={`form-input ${inputClassName}`} placeholder={placeholder} />
+            <textarea 
+                id={id} 
+                className={`form-input ${inputClassName}`} 
+                placeholder={placeholder} 
+                {...rest} />
         </div>
     )
 }

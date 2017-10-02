@@ -1,0 +1,29 @@
+.commentItem {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: solid thin #f3f3f3;
+
+    .commentItem__title {
+        font-weight: 700;
+    }
+
+    .commentItem__title__date {
+        font-size: 12px;
+        font-weight: 300;
+    }
+
+    .commentItem__subtitle {
+        margin-bottom: 5px;
+    }
+
+    .commentItem__footer {
+        list-style: none;
+        margin: 0;
+
+        .commentItem__footer__item {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+    }
+}
