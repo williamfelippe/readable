@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Columns, Col } from '../../components/Spectre'
 import { PostsList } from '../../components/Posts'
+import { EmptyState } from '../../components/Global'
 import { posts as postsActions } from '../../actions'
 
-const posts = [
+/*const posts = [
     {
         id: '8xf0y6ziyjabvozdd253nd',
         timestamp: 1467166872634,
@@ -15,7 +16,7 @@ const posts = [
         voteScore: 6,
         deleted: false
     }   
-]
+]*/
 
 class Category extends Component {
 
@@ -27,25 +28,35 @@ class Category extends Component {
     }
 
     render() {
-        const { match } = this.props
+        const { match, posts } = this.props
         const { category } = match.params
 
         return (
             <Container grid="lg">
-                <Columns>
-                    <Col xs={8}>
-                        <PostsList 
-                            title={`Category: ${category}`} 
-                            posts={posts} />
-                    </Col>
-                </Columns>
+                {
+                    (posts.length > 0) && <Columns>
+                        <Col xs={8}>
+                            <PostsList
+                                title={`Category: ${category}`} 
+                                posts={posts} />
+                        </Col>
+                    </Columns>
+                }
+
+                {
+                    (posts.length <= 0) && <Columns>
+                        <Col xs={12}>
+                            <EmptyState />
+                        </Col>
+                    </Columns>
+                }
             </Container>
         )
     }
 }
 
 const mapStateToProps = state => ({
-
+    posts: state.posts.posts
 })
 
 const mapDispatchToProps = dispatch => ({

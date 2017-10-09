@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { PostItem } from '../'
 import './style.css'
 
-const PostsList = ({ title, posts, votePost }) => {
+const PostsList = ({ title, posts }) => {
 
     const postsList = posts.map(post => {
         return (
             <li key={post.id} className="postList__item">
-                <PostItem post={post} votePost={votePost} />
+                <PostItem post={post} />
             </li>
         )
     })
@@ -37,7 +37,6 @@ PostsList.defaultProps = {
 
 PostsList.propTypes = {
     posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    votePost: PropTypes.func.isRequired,
     title: PropTypes.string,
 }
 

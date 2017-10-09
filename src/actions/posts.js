@@ -1,4 +1,24 @@
 import axios from 'axios'
+import {
+    SET_POSTS,
+    UPDATE_POST,
+    REMOVE_POST
+} from '../constants/actionTypes'
+
+export const setPosts = (posts) => ({
+    type: SET_POSTS,
+    posts
+})
+
+export const updatePost = (post) => ({
+    type: UPDATE_POST,
+    post
+})
+
+export const removePost = (postId) => ({
+    type: REMOVE_POST,
+    postId
+})
 
 /**
  * 
@@ -7,7 +27,8 @@ export const getPosts = () => {
     return dispatch => {
         return axios.get('/posts')
             .then(response => {
-                console.log(response)
+                const posts = response.data
+                dispatch(setPosts(posts))
             })
     }
 }
@@ -20,7 +41,8 @@ export const getPostsByCategory = (categoryName) => {
     return dispatch => {
         return axios.get(`/${categoryName}/posts`)
             .then(response => {
-                console.log(response)
+                const posts = response.data
+                dispatch(setPosts(posts))
             })
     }
 }
@@ -73,7 +95,7 @@ export const deletePost = (postId) => {
     return dispatch => {
         return axios.delete(`/posts/${postId}`)
             .then(response => {
-                console.log(response)
+                dispatch(removePost(postId))
             })
     }
 }

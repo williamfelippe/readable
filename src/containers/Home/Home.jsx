@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Columns, Col } from '../../components/Spectre'
 import { PostsList } from '../../components/Posts'
-import { CategoriesList/*, EmptyState*/ } from '../../components/Global'
+import { CategoriesList, EmptyState } from '../../components/Global'
 import { posts as postsActions, categories as categoriesActions } from '../../actions'
 
-const posts = [
+/*const posts = [
     {
         id: '8xf0y6ziyjabvozdd253nd',
         timestamp: 1467166872634,
@@ -56,7 +56,7 @@ const posts = [
         voteScore: 10,
         deleted: false
     }
-]
+]*/
 
 class Home extends Component {
 
@@ -68,36 +68,43 @@ class Home extends Component {
     }
 
     render() {
-        const { categories, /*empty, loading, error,*/ votePost } = this.props
+        const { categories, posts, /*empty, loading, error,*/ } = this.props
 
         return (
             <Container grid="lg">
+
+                { 
+                    (posts.length > 0) && 
                 <Columns>
                     <Col xs={8}>
-                        <PostsList posts={posts} votePost={votePost} />
+                        <PostsList posts={posts} />
                     </Col>
                     <Col xs={4}>
                         <CategoriesList categories={categories} />
                     </Col>
                 </Columns>
+                }
 
+                {
+                    (posts.length <= 0) && 
                 <Columns>
                     <Col xs={12}>
-                        {/*<EmptyState />*/}
+                        <EmptyState />
                     </Col>
                 </Columns>
+                }
             </Container>
         )
     }
 }
 
 const mapStateToProps = state => ({
+    posts: state.posts.posts,
     categories: state.categories.categories
 })
 
 const mapDispatchToProps = dispatch => ({
     getPosts: () => dispatch(postsActions.getPosts()),
-    votePost: (postId, option) => dispatch(postsActions.votePost(postId, option)),
     getCategories: () => dispatch(categoriesActions.getCategories())
 })
 

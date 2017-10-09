@@ -6,9 +6,9 @@ import formatDate from '../../../utils/formatDate'
 import getInitials from '../../../utils/getInitials'
 import './style.css'
 
-const CommentItem = ({ comment, voteComment }) => {
+const CommentItem = ({ comment, voteComment, removeComment }) => {
 
-    const { author, body, timestamp, voteScore } = comment
+    const { id, author, body, timestamp, voteScore } = comment
 
     return (
         <div className="tile commentItem">
@@ -27,7 +27,29 @@ const CommentItem = ({ comment, voteComment }) => {
 
                 <ul className="commentItem__footer">
                     <li className="commentItem__footer__item">
-                        <Button kind="link" onClick={() => voteComment(UP_VOTE)}>
+                        <Button 
+                            kind="link" 
+                            className="tooltip"
+                            data-tooltip="Edit comment"
+                            onClick={() => console.log('Editar')}>
+                            <Icon icon="edit" />
+                        </Button>
+                    </li>
+                    <li className="commentItem__footer__item">
+                        <Button 
+                            kind="link" 
+                            className="tooltip"
+                            data-tooltip="Delete comment"
+                            onClick={() => removeComment(id)}>
+                            <Icon icon="delete" />
+                        </Button>
+                    </li>
+                    <li className="commentItem__footer__item">
+                        <Button 
+                            kind="link" 
+                            className="tooltip"
+                            data-tooltip="Up vote comment"
+                            onClick={() => voteComment(UP_VOTE)}>
                             <Icon icon="arrow-up" />
                         </Button>
                     </li>
@@ -37,7 +59,11 @@ const CommentItem = ({ comment, voteComment }) => {
                         </small>
                     </li>
                     <li className="commentItem__footer__item">
-                        <Button kind="link" onClick={() => voteComment(DOWN_VOTE)}>
+                        <Button 
+                            kind="link" 
+                            className="tooltip"
+                            data-tooltip="Down vote comment"
+                            onClick={() => voteComment(DOWN_VOTE)}>
                             <Icon icon="arrow-down" />
                         </Button>
                     </li>

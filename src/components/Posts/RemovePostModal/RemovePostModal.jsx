@@ -1,12 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button } from '../../Spectre'
-import { posts as postsActions } from '../../../actions'
+import {
+    posts as postsActions,
+    confirmRemovalPostModal as confirmRemovalPostModalActions
+} from '../../../actions'
 
-const RemovePostModal = ({ active, postToDelete, deletePost }) => {
+const RemovePostModal = ({ open, postToDelete, closeModal, deletePost }) => {
 
     return (
-        <div className={`modal modal-sm ${active ? 'active' : ''}`}>
+        <div className={`modal modal-sm ${open ? 'active' : ''}`}>
             <div className="modal-container" role="document">
                 <div className="modal-header">
                     <div className="modal-title h5">
@@ -21,10 +24,10 @@ const RemovePostModal = ({ active, postToDelete, deletePost }) => {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <Button kind="primary" onClick={(postToDelete) => deletePost(postToDelete)}>
+                    <Button kind="primary" onClick={() => deletePost(postToDelete)}>
                         Oh yeah
                     </Button>
-                    <Button kind="link" onClick={() => console.log("Dar um jeito aqui rs")}>
+                    <Button kind="link" onClick={closeModal}>
                         Nops
                     </Button>
                 </div>
@@ -34,11 +37,13 @@ const RemovePostModal = ({ active, postToDelete, deletePost }) => {
 }
 
 const mapStateToProps = state => ({
-
+    open: state.confirmRemovalPostModal.open,
+    postToDelete: state.confirmRemovalPostModal.postToDelete
 })
 
 const mapDispatchToProps = dispatch => ({
-    deletePost: (postId) => dispatch(postsActions.deletePost(postId))
+    deletePost: (postId) => dispatch(postsActions.deletePost(postId)),
+    closeModal: () => dispatch(confirmRemovalPostModalActions.closeModal())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemovePostModal)

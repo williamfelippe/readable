@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button, TextArea, Icon } from '../../Spectre'
+import { Button, Input, TextArea, Icon } from '../../Spectre'
 import './style.css'
 
 class CommentForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            author: '',
             comment: ''
         }
+    }
+
+    handleAuthor(event) {
+        this.setState({ author: event.target.value})
     }
 
     handleComment(event) {
@@ -20,6 +25,12 @@ class CommentForm extends Component {
 
         return (
             <div className="commentForm">
+                <Input 
+                    id="author" 
+                    inputClassName="commentForm__input"
+                    placeholder="What's your name?"
+                    onChange={this.handleAuthor.bind(this)} />
+
                 <TextArea
                     id="comment"
                     inputClassName="commentForm__textArea"

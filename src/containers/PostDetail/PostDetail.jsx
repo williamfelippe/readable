@@ -15,7 +15,8 @@ const comment = {
     author: 'José',
     category: 'redux',
     voteScore: -5,
-    deleted: false
+    deleted: false,
+    parentId: ''
 }
 
 class PostDetail extends Component {
@@ -51,7 +52,8 @@ class PostDetail extends Component {
                     <Col xs={12}>
                         <div className="postDetail">
                             <h1>
-                                {title} <span className="label label-primary postDetail__category">
+                                {title} <span className="label label-primary 
+                                    postDetail__category">
                                     {category}
                                 </span>
                             </h1>
