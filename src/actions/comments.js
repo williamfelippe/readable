@@ -88,9 +88,9 @@ export const deleteComment = (commentId) => {
  * 
  * @param {string} commentId 
  */
-export const voteComment = (commentId) => {
+export const voteComment = (commentId, option) => {
     return dispatch => {
-        return axios.post(`/comments/${commentId}`, {})
+        return axios.post(`/comments/${commentId}`, { option })
             .then(response => {
                 console.log(response)
             })
