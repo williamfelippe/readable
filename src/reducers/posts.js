@@ -14,7 +14,7 @@ const posts = (state = initialState, action) => {
             return setPosts(state, action.posts)
 
         case UPDATE_POST:
-            return updatePost(state, action.postId, action.post)
+            return updatePost(state, action.post)
 
         case REMOVE_POST:
             return removePost(state, action.postId)
@@ -28,8 +28,10 @@ const setPosts = (state, posts) => ({
     ...state, posts
 })
 
-const updatePost = (state, postId, post) => ({
-    ...state, posts: [...posts, post]
+const updatePost = (state, post) => ({
+    ...state, posts: state.posts.map(postItem => {
+        return (postItem.id === post.id) ? post : postItem
+    })
 })
 
 const removePost = (state, postId) => ({

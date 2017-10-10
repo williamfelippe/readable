@@ -109,7 +109,9 @@ export const votePost = (postId, option) => {
     return dispatch => {
         return axios.post(`/posts/${postId}`, { option })
             .then(response => {
-                console.log(response)
+                const post = response.data
+                console.log('VOTE SCORE', response)
+                dispatch(updatePost(post))
             })
     }
 }

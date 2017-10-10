@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { LinkButton, Button, Icon } from '../../Spectre/index'
 import { UP_VOTE, DOWN_VOTE } from '../../../constants/voteTypes'
-import { posts as postsActions, comments as commentsActions } from '../../../actions'
+import { 
+    posts as postsActions, 
+    comments as commentsActions,
+    confirmRemovalPostModal as confirmRemovalPostModalActions 
+} from '../../../actions'
 import getInitials from '../../../utils/getInitials'
 import formatDate from '../../../utils/formatDate'
 import './style.css'
@@ -21,7 +25,7 @@ class PostItem extends Component {
     }
 
     render() {
-        const { post, votePost } = this.props
+        const { post, votePost, openModal } = this.props
 
         const {
             id,
@@ -72,7 +76,7 @@ class PostItem extends Component {
                         <li className="postItem__rest__item">
                             <Button
                                 kind="link"
-                                onClick={() => console.log('Vou deletei')}
+                                onClick={() => openModal(id)}
                                 className="tooltip"
                                 data-tooltip="Delete post">
                                 <Icon icon="delete" />
@@ -97,14 +101,14 @@ class PostItem extends Component {
 
                 <div className="tile-action">
                     <Button kind="link" className="postItem__voteIcon"
-                        onClick={() => votePost(UP_VOTE)}>
+                        onClick={() => votePost(id, UP_VOTE)}>
                         <Icon icon="arrow-up" />
                     </Button>
                     <p className="postItem__voteScore">
                         {voteScore}
                     </p>
                     <Button kind="link" className="postItem__voteIcon"
-                        onClick={() => votePost(DOWN_VOTE)}>
+                        onClick={() => votePost(id, DOWN_VOTE)}>
                         <Icon icon="arrow-down" />
                     </Button>
                 </div>
@@ -119,7 +123,8 @@ PostItem.propTypes = {
 
 const mapDispatchToProps = dispatch => ({
     votePost: (postId, option) => dispatch(postsActions.votePost(postId, option)),
-    getComments: (postId) => dispatch(commentsActions.getComments(postId))
+    getComments: (postId) => dispatch(commentsActions.getComments(postId)),
+    openModal: (postId) => dispatch(confirmRemovalPostModalActions.openModal(postId))
 })
 
 export default connect(null, mapDispatchToProps)(PostItem)
