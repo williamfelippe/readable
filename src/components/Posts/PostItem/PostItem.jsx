@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { LinkButton, Button, Icon } from '../../Spectre/index'
 import { UP_VOTE, DOWN_VOTE } from '../../../constants/voteTypes'
-import { 
-    posts as postsActions, 
+import {
+    posts as postsActions,
     comments as commentsActions,
-    confirmRemovalPostModal as confirmRemovalPostModalActions 
+    confirmRemovalPostModal as confirmRemovalPostModalActions
 } from '../../../actions'
 import getInitials from '../../../utils/getInitials'
 import formatDate from '../../../utils/formatDate'
@@ -20,12 +20,13 @@ class PostItem extends Component {
         getComments(post.id)
     }
 
-    countComments() {
-
-    }
-
     render() {
-        const { post, votePost, openModal } = this.props
+        const { 
+            post, 
+            comments, 
+            votePost, 
+            openModal 
+        } = this.props
 
         const {
             id,
@@ -87,7 +88,7 @@ class PostItem extends Component {
                                 kind="link"
                                 className="tooltip"
                                 data-tooltip="Comments">
-                                <Icon icon="message" /> <small>10 comments</small>
+                                <Icon icon="message" /> <small>{comments.length} comments</small>
                             </Button>
                         </li>
                         <li className="postItem__rest__item">
@@ -121,10 +122,19 @@ PostItem.propTypes = {
     post: PropTypes.object.isRequired
 }
 
+const mapStateToProps = (state, props) => {
+    const { post } = props
+    const comments = state.comments.comments[post.id]
+
+    return {
+        comments:  (comments && comments !== undefined) ? Object.values(comments) : []
+    }
+}
+
 const mapDispatchToProps = dispatch => ({
     votePost: (postId, option) => dispatch(postsActions.votePost(postId, option)),
     getComments: (postId) => dispatch(commentsActions.getComments(postId)),
     openModal: (postId) => dispatch(confirmRemovalPostModalActions.openModal(postId))
 })
 
-export default connect(null, mapDispatchToProps)(PostItem)
+export default connect(mapStateToProps, mapDispatchToProps)(PostItem)

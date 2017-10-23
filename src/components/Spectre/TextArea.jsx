@@ -1,7 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TextArea = ({ id, label, placeholder, labelClassName, inputClassName, ...rest }) => {
+const TextArea = ({
+    id,
+    label,
+    placeholder,
+    labelClassName,
+    inputClassName,
+    onChangeValue,
+    ...rest
+}) => {
+
+    const onChange = event => {
+        onChangeValue(event.target.value)
+    }
+
     return (
         <div className="form-group">
             {
@@ -10,10 +23,11 @@ const TextArea = ({ id, label, placeholder, labelClassName, inputClassName, ...r
                 </label>
             }
 
-            <textarea 
-                id={id} 
-                className={`form-input ${inputClassName}`} 
-                placeholder={placeholder} 
+            <textarea
+                id={id}
+                className={`form-input ${inputClassName}`}
+                placeholder={placeholder}
+                onChange={onChange}
                 {...rest} />
         </div>
     )
@@ -32,6 +46,7 @@ TextArea.propTypes = {
         PropTypes.string,
         PropTypes.number
     ]).isRequired,
+    onChangeValue: PropTypes.func.isRequired,
     label: PropTypes.string,
     placeholder: PropTypes.string,
     labelClassName: PropTypes.string,

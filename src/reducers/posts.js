@@ -5,7 +5,7 @@ import {
 } from '../constants/actionTypes'
 
 const initialState = {
-    posts: []
+    posts: {}
 }
 
 const posts = (state = initialState, action) => {
@@ -25,13 +25,24 @@ const posts = (state = initialState, action) => {
 }
 
 const setPosts = (state, posts) => ({
-    ...state, posts
+    ...state,
+    posts: posts.reduce(
+        (accumulator, post) => {
+            return {
+                ...accumulator,
+                [post.id]: post
+            }
+        },
+        {}
+    )
 })
 
 const updatePost = (state, post) => ({
-    ...state, posts: state.posts.map(postItem => {
-        return (postItem.id === post.id) ? post : postItem
-    })
+    ...state, 
+    posts: {
+        ...state.posts,
+        [post.id]: post
+    }
 })
 
 const removePost = (state, postId) => ({

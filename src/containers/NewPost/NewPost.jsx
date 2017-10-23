@@ -17,10 +17,13 @@ import './style.css'
 
 class NewPost extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            post: {}
+            author: '',
+            category: '',
+            title: '',
+            body: ''
         }
     }
 
@@ -39,9 +42,6 @@ class NewPost extends Component {
 
         if (postId && postId !== undefined) {
             getPost(postId)
-                .then(() => {
-
-                })
         }
     }
 
@@ -103,7 +103,7 @@ class NewPost extends Component {
                 <Columns>
                     <Col xs={12}>
                         <div className="newpost">
-                            <LinkButton to="/" kind="link" className="newpost__backbutton">
+                            <LinkButton to="/" kind="link" className="newpost__backButton">
                                 <Icon icon="back" />
                             </LinkButton>
 
@@ -118,22 +118,30 @@ class NewPost extends Component {
                                 Etiam volutpat dolor vestibulum dui viverra cursus
                             </p>
 
-                            <form onSubmit={this.handleSubmit.bind(this)} className="newpost__form">
+                            <form
+                                onSubmit={this.handleSubmit.bind(this)}
+                                className="newpost__form">
 
                                 <Input
                                     id="title"
-                                    placeholder="Title" />
+                                    placeholder="Title"
+                                    inputClassName="newpost__input"
+                                    onChangeValue={(value) => console.log(value)} />
 
                                 {
                                     !isEditing &&
                                     <Input
                                         id="author"
-                                        placeholder="Author" />
+                                        placeholder="Author"
+                                        inputClassName="newpost__input"
+                                        onChangeValue={(value) => console.log(value)} />
                                 }
 
                                 <TextArea
                                     id="message"
-                                    placeholder="Message" />
+                                    inputClassName="newpost__input newpost__input--area"
+                                    placeholder="Message"
+                                    onChangeValue={(value) => console.log(value)} />
 
                                 {
                                     !isEditing &&
@@ -143,7 +151,8 @@ class NewPost extends Component {
                                             { value: 'teste', text: 'Teste' },
                                             { value: 'teste2', text: 'Teste2' },
                                             { value: 'teste3', text: 'Teste3' }
-                                        ]} />
+                                        ]}
+                                        onSelectValue={(value) => console.log(value)} />
                                 }
 
                                 <Button
@@ -162,9 +171,17 @@ class NewPost extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = ({ posts }, { match }) => {
+    const { postId } = match.params
 
-})
+    const post = postId && postId !== undefined
+        ? posts[postId]
+        : {}
+
+    return {
+        post: (post !== undefined) ? post : {}
+    }
+}
 
 const mapDispatchToProps = dispatch => ({
     getPost: (postId) => dispatch(postsActions.getPost(postId)),

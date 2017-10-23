@@ -6,7 +6,7 @@
     margin: 0 auto;
     padding-top: 40px;
 
-    .newpost__backbutton {
+    .newpost__backButton {
         font-size: 20px;
         position: absolute;
         margin-top: 10px;
@@ -17,6 +17,15 @@
         text-align: justify;
 
         margin: 40px 0;
+    }
+
+    .newpost__input {
+        
+        margin-bottom: 20px;
+
+        &.newpost__input--area {
+            resize: none;
+        }   
     }
 
     .newpost_button {

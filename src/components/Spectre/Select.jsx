@@ -1,7 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Select = ({ options, placeholder, className, inputClassName }) => {
+const Select = ({
+    options,
+    placeholder,
+    className,
+    inputClassName,
+    onSelectValue,
+    ...rest
+}) => {
+
+    const onChange = event => {
+        onSelectValue(event.target.value)
+    }
 
     const optionsList = options.map(({ value, text }, key) => {
         return (
@@ -13,7 +24,8 @@ const Select = ({ options, placeholder, className, inputClassName }) => {
 
     return (
         <div className={`form-group ${className}`}>
-            <select className={`form-select ${inputClassName}`}>
+            <select className={`form-select ${inputClassName}`}
+                onChange={onChange}>
                 <option>{placeholder}</option>
                 {optionsList}
             </select>
@@ -34,6 +46,7 @@ Select.propTypes = {
         value: PropTypes.string,
         text: PropTypes.string
     })).isRequired,
+    onSelectValue: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
     className: PropTypes.string,
     inputClassName: PropTypes.string

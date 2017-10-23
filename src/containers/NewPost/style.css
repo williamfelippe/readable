@@ -3,7 +3,7 @@
   max-width: 600px;
   margin: 0 auto;
   padding-top: 40px; }
-  .newpost .newpost__backbutton {
+  .newpost .newpost__backButton {
     font-size: 20px;
     position: absolute;
     margin-top: 10px; }
@@ -11,5 +11,9 @@
     font-size: 18px;
     text-align: justify;
     margin: 40px 0; }
+  .newpost .newpost__input {
+    margin-bottom: 20px; }
+    .newpost .newpost__input.newpost__input--area {
+      resize: none; }
   .newpost .newpost_button {
     margin-top: 40px; }

@@ -68,7 +68,9 @@ export const getPost = (postId) => {
     return dispatch => {
         return axios.get(`/posts/${postId}`)
             .then(response => {
-                console.log(response)
+                console.log(response.data)
+                const post = response.data
+                dispatch(updatePost(post))
             })
     }
 }
@@ -110,7 +112,6 @@ export const votePost = (postId, option) => {
         return axios.post(`/posts/${postId}`, { option })
             .then(response => {
                 const post = response.data
-                console.log('VOTE SCORE', response)
                 dispatch(updatePost(post))
             })
     }

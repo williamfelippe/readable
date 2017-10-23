@@ -1,14 +1,15 @@
 import axios from 'axios'
 import {
-    SET_COMMENTS,
+    ADD_COMMENTS,
     UPDATE_COMMENT,
     REMOVE_COMMENT,
     LOADING_COMMENTS
 } from '../constants/actionTypes'
 
-export const setComments = (comments) => ({
-    type: SET_COMMENTS,
-    comments
+export const addComments = (comments, postId) => ({
+    type: ADD_COMMENTS,
+    comments,
+    postId
 })
 
 export const updateComment = (comment) => ({
@@ -32,17 +33,13 @@ export const setLoading = (status) => ({
  */
 export const getComments = (postId) => {
     return dispatch => {
-        //dispatch(setLoading(true))
-
         return axios.get(`/posts/${postId}/comments`)
             .then(response => {
-
-                //dispatch(setLoading(false))
-                const { comments } = response.data
-                console.log('COMMENTS', comments)
+                const comments = response.data
+                dispatch(addComments(comments, postId))
             })
             .catch(error => {
-                //dispatch(setLoading(false))
+                console.log(error)
             })
     }
 }
@@ -109,7 +106,7 @@ export const voteComment = (commentId, option) => {
     return dispatch => {
         return axios.post(`/comments/${commentId}`, { option })
             .then(response => {
-                console.log(response.data)
+                console.log('VOTE COMMENT', response.data)
             })
     }
 }
