@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const Select = ({
     options,
+    value,
     placeholder,
     className,
     inputClassName,
@@ -24,7 +25,7 @@ const Select = ({
 
     return (
         <div className={`form-group ${className}`}>
-            <select className={`form-select ${inputClassName}`}
+            <select className={`form-select ${inputClassName}`} value={value}
                 onChange={onChange}>
                 <option>{placeholder}</option>
                 {optionsList}
@@ -46,6 +47,7 @@ Select.propTypes = {
         value: PropTypes.string,
         text: PropTypes.string
     })).isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     onSelectValue: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
     className: PropTypes.string,

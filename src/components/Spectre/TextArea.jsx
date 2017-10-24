@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const TextArea = ({
     id,
+    value,
     label,
     placeholder,
     labelClassName,
@@ -25,6 +26,7 @@ const TextArea = ({
 
             <textarea
                 id={id}
+                value={value}
                 className={`form-input ${inputClassName}`}
                 placeholder={placeholder}
                 onChange={onChange}
@@ -46,6 +48,7 @@ TextArea.propTypes = {
         PropTypes.string,
         PropTypes.number
     ]).isRequired,
+    value: PropTypes.string.isRequired,
     onChangeValue: PropTypes.func.isRequired,
     label: PropTypes.string,
     placeholder: PropTypes.string,

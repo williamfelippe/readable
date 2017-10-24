@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const Input = ({
     id,
+    value,
     label,
     type,
     placeholder,
@@ -28,6 +29,7 @@ const Input = ({
                 id={id}
                 className={`form-input ${inputClassName}`}
                 type={type}
+                value={value}
                 placeholder={placeholder}
                 onChange={onChange} />
         </div>
@@ -48,6 +50,7 @@ Input.propTypes = {
         PropTypes.string,
         PropTypes.number
     ]).isRequired,
+    value: PropTypes.string.isRequired,
     onChangeValue: PropTypes.func.isRequired,
     label: PropTypes.string,
     type: PropTypes.string,
