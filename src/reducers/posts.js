@@ -1,6 +1,5 @@
 import {
-    SET_POSTS,
-    UPDATE_POST,
+    ADD_POST,
     REMOVE_POST
 } from '../constants/actionTypes'
 
@@ -10,11 +9,8 @@ const initialState = {
 
 const posts = (state = initialState, action) => {
     switch (action.type) {
-        case SET_POSTS:
-            return setPosts(state, action.posts)
-
-        case UPDATE_POST:
-            return updatePost(state, action.post)
+        case ADD_POST:
+            return addPost(state, action.post)
 
         case REMOVE_POST:
             return removePost(state, action.postId)
@@ -24,29 +20,19 @@ const posts = (state = initialState, action) => {
     }
 }
 
-const setPosts = (state, posts) => ({
+const addPost = (state, post) => ({
     ...state,
-    posts: posts.reduce(
-        (accumulator, post) => {
-            return {
-                ...accumulator,
-                [post.id]: post
-            }
-        },
-        {}
-    )
-})
-
-const updatePost = (state, post) => ({
-    ...state, 
     posts: {
         ...state.posts,
         [post.id]: post
     }
 })
 
-const removePost = (state, postId) => ({
-    ...state, posts: state.posts.filter(post => post.id !== postId)
-})
+const removePost = (state, postId) => {
+    const posts = { ...this.state.posts }
+    delete posts[postId]
+
+    return { ...state, posts }
+}
 
 export default posts

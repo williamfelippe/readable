@@ -42,6 +42,15 @@ class NewPost extends Component {
 
         if (postId && postId !== undefined) {
             getPost(postId)
+                .then(post => {
+                    const { author, category, title, body } = post
+                    this.setState({
+                        author,
+                        category,
+                        title,
+                        body
+                    })
+                })
         }
     }
 
@@ -65,8 +74,7 @@ class NewPost extends Component {
         const { match, history } = this.props
         const { postId } = match.params
 
-        const title = ""
-        const body = ""
+        const { title, body } = this.state
 
         /**
          * 
@@ -82,8 +90,7 @@ class NewPost extends Component {
         else {
             const id = uuidv4()
             const timestamp = Date.now()
-            const author = ""
-            const category = ""
+            const { author, category } = this.state
 
             const { addPost } = this.props
             addPost({ id, timestamp, author, category, title, body })
@@ -92,10 +99,10 @@ class NewPost extends Component {
     }
 
     render() {
+        const { author, category, title, body } = this.state
 
-        const { match } = this.props
+        const { match, categories } = this.props
         const { postId } = match.params
-
         const isEditing = (postId && postId !== undefined)
 
         return (
@@ -114,8 +121,6 @@ class NewPost extends Component {
                             <p className="newpost__description">
                                 Aliquam elementum malesuada lorem nec vehicula. Morbi nec diam tortor.
                                 Fusce pulvinar dui non suscipit bibendum.
-                                Praesent condimentum ultrices ante id tempor.
-                                Etiam volutpat dolor vestibulum dui viverra cursus
                             </p>
 
                             <form
@@ -126,33 +131,38 @@ class NewPost extends Component {
                                     id="title"
                                     placeholder="Title"
                                     inputClassName="newpost__input"
-                                    onChangeValue={(value) => console.log(value)} />
+                                    value={title}
+                                    onChangeValue={(title) => this.setState({ title })} />
 
                                 {
                                     !isEditing &&
                                     <Input
                                         id="author"
                                         placeholder="Author"
+                                        value={author}
                                         inputClassName="newpost__input"
-                                        onChangeValue={(value) => console.log(value)} />
+                                        onChangeValue={(author) => this.setState({ author })} />
                                 }
 
                                 <TextArea
                                     id="message"
+                                    value={body}
                                     inputClassName="newpost__input newpost__input--area"
                                     placeholder="Message"
-                                    onChangeValue={(value) => console.log(value)} />
+                                    onChangeValue={(body) => this.setState({ body })} />
 
                                 {
                                     !isEditing &&
                                     <Select
+                                        value={category}
                                         placeholder="Choose a category"
-                                        options={[
-                                            { value: 'teste', text: 'Teste' },
-                                            { value: 'teste2', text: 'Teste2' },
-                                            { value: 'teste3', text: 'Teste3' }
-                                        ]}
-                                        onSelectValue={(value) => console.log(value)} />
+                                        options={categories.map(category => {
+                                            return { 
+                                                value: category.path, 
+                                                text: category.name 
+                                            }
+                                        })}
+                                        onSelectValue={(category) => this.setState({ category })} />
                                 }
 
                                 <Button
@@ -171,22 +181,14 @@ class NewPost extends Component {
     }
 }
 
-const mapStateToProps = ({ posts }, { match }) => {
-    const { postId } = match.params
-
-    const post = postId && postId !== undefined
-        ? posts[postId]
-        : {}
-
-    return {
-        post: (post !== undefined) ? post : {}
-    }
-}
+const mapStateToProps = ({ categories }) => ({
+    categories: categories.categories
+})
 
 const mapDispatchToProps = dispatch => ({
     getPost: (postId) => dispatch(postsActions.getPost(postId)),
     addPost: (post) => dispatch(postsActions.postPost(post)),
-    updatePost: (postId, post) => dispatch(postsActions.updatePost(postId, post))
+    updatePost: (postId, post) => dispatch(postsActions.putPost(postId, post))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost)

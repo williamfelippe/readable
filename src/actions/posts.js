@@ -1,17 +1,11 @@
 import axios from 'axios'
 import {
-    SET_POSTS,
-    UPDATE_POST,
+    ADD_POST,
     REMOVE_POST
 } from '../constants/actionTypes'
 
-export const setPosts = (posts) => ({
-    type: SET_POSTS,
-    posts
-})
-
-export const updatePost = (post) => ({
-    type: UPDATE_POST,
+export const addPost = (post) => ({
+    type: ADD_POST,
     post
 })
 
@@ -28,7 +22,9 @@ export const getPosts = () => {
         return axios.get('/posts')
             .then(response => {
                 const posts = response.data
-                dispatch(setPosts(posts))
+                for(const post of posts) {
+                    dispatch(addPost(post))
+                }
             })
     }
 }
@@ -42,7 +38,9 @@ export const getPostsByCategory = (categoryName) => {
         return axios.get(`/${categoryName}/posts`)
             .then(response => {
                 const posts = response.data
-                dispatch(setPosts(posts))
+                for(const post of posts) {
+                    dispatch(addPost(post))
+                }
             })
     }
 }
@@ -55,7 +53,8 @@ export const postPost = (post) => {
     return dispatch => {
         return axios.post('/posts', post)
             .then(response => {
-                console.log(response)
+                const post = response.data
+                dispatch(addPost(post))
             })
     }
 }
@@ -68,9 +67,10 @@ export const getPost = (postId) => {
     return dispatch => {
         return axios.get(`/posts/${postId}`)
             .then(response => {
-                console.log(response.data)
                 const post = response.data
-                dispatch(updatePost(post))
+                dispatch(addPost(post))
+
+                return post
             })
     }
 }
@@ -84,7 +84,8 @@ export const putPost = (postId, post) => {
     return dispatch => {
         return axios.put(`/posts/${postId}`, post)
             .then(response => {
-                console.log(response)
+                const post = response.data
+                dispatch(addPost(post))
             })
     }
 }
@@ -112,7 +113,7 @@ export const votePost = (postId, option) => {
         return axios.post(`/posts/${postId}`, { option })
             .then(response => {
                 const post = response.data
-                dispatch(updatePost(post))
+                dispatch(addPost(post))
             })
     }
 }

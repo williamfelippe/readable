@@ -5,19 +5,6 @@ import { PostsList } from '../../components/Posts'
 import { EmptyState } from '../../components/Global'
 import { posts as postsActions } from '../../actions'
 
-/*const posts = [
-    {
-        id: '8xf0y6ziyjabvozdd253nd',
-        timestamp: 1467166872634,
-        title: 'Udacity is the best place to learn React',
-        body: 'Everyone says so after all.',
-        author: 'William Felippe',
-        category: 'react',
-        voteScore: 6,
-        deleted: false
-    }   
-]*/
-
 class Category extends Component {
 
     componentDidMount() {
@@ -37,7 +24,7 @@ class Category extends Component {
                     (posts.length > 0) && <Columns>
                         <Col xs={8}>
                             <PostsList
-                                title={`Category: ${category}`} 
+                                title={`Category: ${category}`}
                                 posts={posts} />
                         </Col>
                     </Columns>
@@ -55,9 +42,13 @@ class Category extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    posts: state.posts.posts
-})
+const mapStateToProps = ({ posts }, { match }) => {
+    const { category } = match.params
+
+    return {
+        posts: Object.values(posts.posts).filter(post => post.category === category)
+    }
+}
 
 const mapDispatchToProps = dispatch => ({
     getPostsByCategory: (categoryName) => dispatch(postsActions.getPostsByCategory(categoryName))
