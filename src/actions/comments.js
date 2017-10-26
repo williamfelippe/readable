@@ -52,8 +52,7 @@ export const getComment = (commentId) => {
     return dispatch => {
         return axios.get(`/comments/${commentId}`)
             .then(response => {
-                //const { comment } = response.data
-                console.log(response.data)
+                dispatch(updateComment(response.data))
             })
     }
 }
@@ -66,7 +65,7 @@ export const postComment = (comment) => {
     return dispatch => {
         return axios.post(`/comments`, comment)
             .then(response => {
-                console.log(response.data)
+                dispatch(updateComment(response.data))
             })
     }
 }
@@ -80,7 +79,7 @@ export const putComment = (commentId, comment) => {
     return dispatch => {
         return axios.put(`/comments/${commentId}`, comment)
             .then(response => {
-                console.log(response.data)
+                dispatch(updateComment(response.data))
             })
     }
 }
@@ -93,7 +92,7 @@ export const deleteComment = (commentId) => {
     return dispatch => {
         return axios.delete(`/comments/${commentId}`)
             .then(response => {
-                console.log(response.data)
+                dispatch(updateComment(response.data))
             })
     }
 }
@@ -106,7 +105,7 @@ export const voteComment = (commentId, option) => {
     return dispatch => {
         return axios.post(`/comments/${commentId}`, { option })
             .then(response => {
-                console.log('VOTE COMMENT', response.data)
+                dispatch(updateComment(response.data))
             })
     }
 }

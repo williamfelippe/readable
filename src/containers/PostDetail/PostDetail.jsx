@@ -43,7 +43,8 @@ class PostDetail extends Component {
     }
 
     render() {
-        const { votePost, /*comment*/ } = this.props
+        const { votePost, match } = this.props
+        const { postId } = match.params
         const { timestamp, title, body, author, category, voteScore } = comment
 
         return (
@@ -52,8 +53,7 @@ class PostDetail extends Component {
                     <Col xs={12}>
                         <div className="postDetail">
                             <h1>
-                                {title} <span className="label label-primary 
-                                    postDetail__category">
+                                {title} <span className="label label-primary postDetail__category">
                                     {category}
                                 </span>
                             </h1>
@@ -84,7 +84,7 @@ class PostDetail extends Component {
                                 </div>
                             </div>
 
-                            <CommentsList />
+                            <CommentsList postId={postId} />
                         </div>
                     </Col>
                 </Columns>

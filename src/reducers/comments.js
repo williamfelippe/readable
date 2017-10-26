@@ -1,7 +1,6 @@
 import {
     ADD_COMMENTS,
-    UPDATE_COMMENT,
-    REMOVE_COMMENT
+    UPDATE_COMMENT
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -14,10 +13,7 @@ const comments = (state = initialState, action) => {
             return addComments(state, action.comments, action.postId)
 
         case UPDATE_COMMENT:
-            return updateComment(state, action.commentId, action.comment)
-
-        case REMOVE_COMMENT:
-            return removeComment(state, action.commentId)
+            return updateComment(state, action.comment)
 
         default:
             return state
@@ -31,10 +27,11 @@ const addComments = (state, comments, postId) => {
             ...state.comments,
             [postId]: comments.reduce(
                 (accumulator, comment) => {
-                    return {
-                        ...accumulator,
-                        [comment.id]: comment
-                    }
+                    return (
+                        !comment.deleted 
+                            ? { ...accumulator, [comment.id]: comment } 
+                            : accumulator
+                    )
                 },
                 {}
             )
@@ -42,18 +39,15 @@ const addComments = (state, comments, postId) => {
     }
 }
 
-const updateComment = (state, commentId, comment) => ({
+const updateComment = (state, comment) => ({
     ...state,
     comments: {
         ...state.comments,
         [comment.parentId]: {
-            [commentId]: comment
+            ...state.comments[comment.parentId],
+            [comment.id]: comment
         }
     }
-})
-
-const removeComment = (state, commentId) => ({
-    ...state, comments: state.comments.filter(comment => comment.id !== commentId)
 })
 
 export default comments
