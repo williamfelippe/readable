@@ -1,49 +1,71 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Button, Input, TextArea, Icon } from '../../Spectre'
+import { comments as commentsActions } from '../../../actions/index'
+import uuidv4 from 'uuid/v4'
 import './style.css'
 
 class CommentForm extends Component {
+
     constructor(props) {
         super(props)
         this.state = {
             author: '',
-            comment: ''
+            body: ''
         }
     }
 
-    handleAuthor(event) {
-        this.setState({ author: event.target.value})
-    }
+    onSubmit(event) {
+        event.preventDefault()
 
-    handleComment(event) {
-        this.setState({ comment: event.target.value})
+        const { postId, postComment } = this.props
+        const { author, body } = this.state
+
+        const comment = {
+            id: uuidv4(),
+            timestamp: Date.now(),
+            body,
+            author,
+            parentId: postId
+        }
+
+        postComment(comment)
+            .then(() => {
+                this.setState({
+                    author: '', 
+                    body: ''
+                })
+            })
     }
 
     render() {
-        const { postComment } = this.props
+        const { author, body } = this.state
 
         return (
-            <div className="commentForm">
-                <Input 
-                    id="author" 
+            <form className="commentForm"
+                onSubmit={this.onSubmit.bind(this)}>
+                <Input
+                    id="author"
                     inputClassName="commentForm__input"
                     placeholder="What's your name?"
-                    onChange={this.handleAuthor.bind(this)} />
+                    value={author}
+                    onChangeValue={(author) => this.setState({ author })} />
 
                 <TextArea
                     id="comment"
                     inputClassName="commentForm__textArea"
+                    value={body}
                     placeholder="Write a comment..."
-                    onChange={this.handleComment.bind(this)} />
+                    onChangeValue={(body) => this.setState({ body })} />
 
-                <Button 
-                    kind="primary" 
-                    className="commentForm__button" 
-                    onClick={() => postComment()} >
+                <Button
+                    kind="primary"
+                    className="commentForm__button"
+                    type="submit">
                     Submit <Icon icon="forward" />
                 </Button>
-            </div>
+            </form>
         )
     }
 }
@@ -52,4 +74,8 @@ CommentForm.propTypes = {
     postComment: PropTypes.func.isRequired
 }
 
-export default CommentForm
+const mapDispatchToProps = dispatch => ({
+    postComment: (comment) => dispatch(commentsActions.postComment(comment))
+})
+
+export default connect(null, mapDispatchToProps)(CommentForm)

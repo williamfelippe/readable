@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Button, Icon } from '../../Spectre/index'
 import { UP_VOTE, DOWN_VOTE } from '../../../constants/voteTypes'
+import { comments as commentsActions } from '../../../actions/index'
 import formatDate from '../../../utils/formatDate'
 import getInitials from '../../../utils/getInitials'
 import './style.css'
 
-const CommentItem = ({ comment, voteComment, removeComment }) => {
+const CommentItem = ({ comment, voteComment, deleteComment }) => {
 
     const { id, author, body, timestamp, voteScore } = comment
 
@@ -27,8 +29,8 @@ const CommentItem = ({ comment, voteComment, removeComment }) => {
 
                 <ul className="commentItem__footer">
                     <li className="commentItem__footer__item">
-                        <Button 
-                            kind="link" 
+                        <Button
+                            kind="link"
                             className="tooltip"
                             data-tooltip="Edit comment"
                             onClick={() => console.log('Editar')}>
@@ -36,17 +38,17 @@ const CommentItem = ({ comment, voteComment, removeComment }) => {
                         </Button>
                     </li>
                     <li className="commentItem__footer__item">
-                        <Button 
-                            kind="link" 
+                        <Button
+                            kind="link"
                             className="tooltip"
                             data-tooltip="Delete comment"
-                            onClick={() => removeComment(id)}>
+                            onClick={() => deleteComment(id)}>
                             <Icon icon="delete" />
                         </Button>
                     </li>
                     <li className="commentItem__footer__item">
-                        <Button 
-                            kind="link" 
+                        <Button
+                            kind="link"
                             className="tooltip"
                             data-tooltip="Up vote comment"
                             onClick={() => voteComment(UP_VOTE)}>
@@ -59,8 +61,8 @@ const CommentItem = ({ comment, voteComment, removeComment }) => {
                         </small>
                     </li>
                     <li className="commentItem__footer__item">
-                        <Button 
-                            kind="link" 
+                        <Button
+                            kind="link"
                             className="tooltip"
                             data-tooltip="Down vote comment"
                             onClick={() => voteComment(DOWN_VOTE)}>
@@ -78,4 +80,9 @@ CommentItem.propTypes = {
     voteComment: PropTypes.func.isRequired
 }
 
-export default CommentItem
+const mapDispatchToProps = dispatch => ({
+    deleteComment: (commentId) => dispatch(commentsActions.deleteComment(commentId)),
+    voteComment: (commentId) => dispatch(commentsActions.voteComment(commentId))
+})
+
+export default connect(null, mapDispatchToProps)(CommentItem)
