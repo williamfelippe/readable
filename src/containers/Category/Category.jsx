@@ -42,12 +42,15 @@ class Category extends Component {
     }
 }
 
-const mapStateToProps = ({ posts }, { match }) => {
+const mapStateToProps = (state, { match }) => {
+    
     const { category } = match.params
 
-    return {
-        posts: Object.values(posts.posts).filter(post => post.category === category)
-    }
+    const posts = Object.values(state.posts.posts).filter(post => {
+        return ( post.category === category && !post.deleted )
+    })
+
+    return { posts }
 }
 
 const mapDispatchToProps = dispatch => ({

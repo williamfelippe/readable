@@ -45,8 +45,8 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    const posts = Object.values(state.posts.posts)
+const mapStateToProps = (state) => {
+    const posts = Object.values(state.posts.posts).filter(post => !post.deleted)
     const categories = state.categories.categories
 
     return {
