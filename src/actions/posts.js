@@ -1,9 +1,14 @@
 import axios from 'axios'
-import { ADD_POST } from '../constants/actionTypes'
+import { ADD_POST, SET_POSTS_ORDER } from '../constants/actionTypes'
 
 export const addPost = (post) => ({
     type: ADD_POST,
     post
+})
+
+export const setPostsOrder = (order) => ({
+    type: SET_POSTS_ORDER,
+    order
 })
 
 /**

@@ -7,11 +7,11 @@ const Footer = () => {
         <footer className="footer">
             <Container grid="lg">
                 <Columns>
-                    <Col xs={8}>
+                    <Col xl={8}>
                     
                     </Col>
 
-                    <Col xs={4}>
+                    <Col xl={4}>
                         <span className="footer__title">
                             Readable
                         </span>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Columns, Col } from '../../components/Spectre'
-import { PostsList } from '../../components/Posts'
+import { PostsList, SortPostsSelect } from '../../components/Posts'
 import { CategoriesList, EmptyState } from '../../components/Global'
 import { posts as postsActions, categories as categoriesActions } from '../../actions'
+import _ from 'lodash'
 
 class Home extends Component {
 
@@ -15,18 +16,28 @@ class Home extends Component {
     }
 
     render() {
-        const { categories, posts, /*empty, loading, error,*/ } = this.props
+        const { 
+            categories, 
+            posts
+            /*empty, loading, error,*/ 
+        } = this.props
 
         return (
             <Container grid="lg">
 
+                <Columns>
+                    <Col xs={6} sm={4} xl={2} offset='left'>
+                        <SortPostsSelect />
+                    </Col>
+                </Columns>
+
                 {
                     (posts.length > 0) &&
                     <Columns>
-                        <Col xs={8}>
+                        <Col sm={12} xl={8}>
                             <PostsList posts={posts} />
                         </Col>
-                        <Col xs={4}>
+                        <Col sm={12} xl={4}>
                             <CategoriesList categories={categories} />
                         </Col>
                     </Columns>
@@ -35,7 +46,7 @@ class Home extends Component {
                 {
                     (posts.length <= 0) &&
                     <Columns>
-                        <Col xs={12}>
+                        <Col xl={12}>
                             <EmptyState />
                         </Col>
                     </Columns>
@@ -45,12 +56,14 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const posts = Object.values(state.posts.posts).filter(post => !post.deleted)
+const mapStateToProps = (state, props) => {
+    const order = state.posts.order
     const categories = state.categories.categories
+    let posts = Object.values(state.posts.posts).filter(post => !post.deleted)
 
     return {
-        posts,
+        posts: (order !== '') ? _.orderBy(posts, order, 'asc') : posts,
+        order,
         categories
     }
 }

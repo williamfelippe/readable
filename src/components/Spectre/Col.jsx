@@ -1,18 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Col = ({ children, xs, sm, md, lg, xl, hide, show, className }) => {
+const Col = ({
+    children,
+    xs,
+    sm,
+    md,
+    lg,
+    xl,
+    hide,
+    show,
+    offset,
+    className
+}) => {
 
     /**
      * 
      */
     const cols = [
-        { value: xs, class: '' },
+        { value: xs, class: 'xs-' },
         { value: sm, class: 'sm-' },
         { value: md, class: 'md-' },
         { value: lg, class: 'lg-' },
-        { value: xl, class: 'xl-' }
+        { value: xl, class: '' }
     ]
+
+    const margins = {
+        'left': 'col-ml-auto',
+        'right': 'col-mr-auto',
+        'equal': 'col-mx-auto'
+    }
 
     /**
      * 
@@ -22,7 +39,10 @@ const Col = ({ children, xs, sm, md, lg, xl, hide, show, className }) => {
     }, '')
 
     return (
-        <div className={`column ${classes} ${hide ? hide : ''} ${show ? show : ''} ${className}`.trim()}>
+        <div className={
+            `column ${classes} ${hide ? hide : ''} ${show ? show : ''} 
+            ${offset ? margins[offset] : ''} ${className} `.trim()
+        }>
             {children}
         </div>
     )
@@ -36,6 +56,7 @@ Col.defaultProps = {
     xl: null,
     hide: null,
     show: null,
+    offset: null,
     className: ''
 }
 
@@ -46,6 +67,7 @@ Col.propTypes = {
     md: PropTypes.number,
     lg: PropTypes.number,
     xl: PropTypes.number,
+    offset: PropTypes.oneOf(['left', 'right', 'equal']),
     hide: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
     show: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
     className: PropTypes.string

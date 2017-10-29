@@ -27,7 +27,9 @@ const Select = ({
         <div className={`form-group ${className}`}>
             <select className={`form-select ${inputClassName}`} value={value}
                 onChange={onChange}>
-                <option>{placeholder}</option>
+                <option value="">
+                    {placeholder}
+                </option>
                 {optionsList}
             </select>
         </div>

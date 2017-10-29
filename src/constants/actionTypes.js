@@ -1,5 +1,6 @@
 export const ADD_POST = 'ADD_POST'
 export const REMOVE_POST = 'REMOVE_POST'
+export const SET_POSTS_ORDER = 'SET_POSTS_ORDER'
 
 export const SET_CATEGORIES = 'SET_CATEGORIES'
 export const LOADING_CATEGORIES = 'LOADING_CATEGORIES'

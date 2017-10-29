@@ -8,12 +8,12 @@ const Header = () => {
         <header className="header">
             <Container grid="lg">
                 <Columns>
-                    <Col xs={6}>
+                    <Col xl={6}>
                         <NavLink to="/" exact className="header__title">
                             Readable
                         </NavLink>
                     </Col>
-                    <Col xs={6}>
+                    <Col xl={6}>
                         <LinkButton
                             kind="primary"
                             to="/post/new"

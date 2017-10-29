@@ -21,11 +21,11 @@ class PostItem extends Component {
     }
 
     render() {
-        const { 
-            post, 
-            comments, 
-            votePost, 
-            openModal 
+        const {
+            post,
+            comments,
+            votePost,
+            openModal
         } = this.props
 
         const {
@@ -88,7 +88,9 @@ class PostItem extends Component {
                                 kind="link"
                                 className="tooltip"
                                 data-tooltip="Comments">
-                                <Icon icon="message" /> <small>{comments.length} comments</small>
+                                <Icon icon="message" /> <small>
+                                    {comments.length} comments
+                                </small>
                             </Button>
                         </li>
                         <li className="postItem__rest__item">
@@ -127,7 +129,7 @@ const mapStateToProps = (state, props) => {
     const comments = state.comments.comments[post.id]
 
     return {
-        comments:  (comments && comments !== undefined) ? Object.values(comments) : []
+        comments: (comments && comments !== undefined) ? Object.values(comments) : []
     }
 }
 
