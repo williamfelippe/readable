@@ -16,20 +16,23 @@ class Home extends Component {
     }
 
     render() {
-        const { 
-            categories, 
+        const {
+            categories,
             posts
-            /*empty, loading, error,*/ 
+            /*empty, loading, error,*/
         } = this.props
 
         return (
             <Container grid="lg">
 
-                <Columns>
-                    <Col xs={6} sm={4} xl={2} offset='left'>
-                        <SortPostsSelect />
-                    </Col>
-                </Columns>
+                {
+                    (posts.length > 0) &&
+                    <Columns>
+                        <Col xs={6} sm={4} xl={2} offset='left'>
+                            <SortPostsSelect />
+                        </Col>
+                    </Columns>
+                }
 
                 {
                     (posts.length > 0) &&

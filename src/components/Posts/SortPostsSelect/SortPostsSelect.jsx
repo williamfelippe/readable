@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Select } from '../../Spectre'
 import { posts as postsActions } from '../../../actions'
+import './style.css'
 
 const SortPostsSelect = ({ order, setPostsOrder }) => {
     return (
@@ -18,7 +19,7 @@ const SortPostsSelect = ({ order, setPostsOrder }) => {
                     text: 'Score'
                 }
             ]}
-            className=""
+            className="sortPosts"
             onSelectValue={setPostsOrder} />
     )
 }
