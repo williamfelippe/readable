@@ -1,6 +1,7 @@
 import {
     ADD_COMMENTS,
-    UPDATE_COMMENT
+    UPDATE_COMMENT,
+    REMOVE_COMMENT
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -14,6 +15,9 @@ const comments = (state = initialState, action) => {
 
         case UPDATE_COMMENT:
             return updateComment(state, action.comment)
+
+        case REMOVE_COMMENT:
+            return removeComment(state, action.postId, action.commentId)
 
         default:
             return state
@@ -49,5 +53,18 @@ const updateComment = (state, comment) => ({
         }
     }
 })
+
+const removeComment = (state, postId, commentId) => {
+    let comments = { ...state.comments[postId] }
+    delete comments[commentId]
+
+    return { 
+        ...state,
+        comments: {
+            ...state.comments,
+            [postId]: comments
+        }
+    }
+}
 
 export default comments

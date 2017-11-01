@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { ADD_POST, SET_POSTS_ORDER } from '../constants/actionTypes'
+import { 
+    ADD_POST, 
+    REMOVE_POST,
+    SET_POSTS_ORDER 
+} from '../constants/actionTypes'
 
 export const addPost = (post) => ({
     type: ADD_POST,
@@ -11,9 +15,11 @@ export const setPostsOrder = (order) => ({
     order
 })
 
-/**
- * 
- */
+export const removePost = (postId) => ({
+    type: REMOVE_POST,
+    postId
+})
+
 export const getPosts = () => {
     return dispatch => {
         return axios.get('/posts')
@@ -26,10 +32,6 @@ export const getPosts = () => {
     }
 }
 
-/**
- * 
- * @param {string} categoryName 
- */
 export const getPostsByCategory = (categoryName) => {
     return dispatch => {
         return axios.get(`/${categoryName}/posts`)
@@ -42,10 +44,6 @@ export const getPostsByCategory = (categoryName) => {
     }
 }
 
-/**
- * 
- * @param {object} post 
- */
 export const postPost = (post) => {
     return dispatch => {
         return axios.post('/posts', post)
@@ -55,10 +53,6 @@ export const postPost = (post) => {
     }
 }
 
-/**
- * 
- * @param {string} postId 
- */
 export const getPost = (postId) => {
     return dispatch => {
         return axios.get(`/posts/${postId}`)
@@ -71,11 +65,6 @@ export const getPost = (postId) => {
     }
 }
 
-/**
- * 
- * @param {string} postId 
- * @param {object} post 
- */
 export const putPost = (postId, post) => {
     return dispatch => {
         return axios.put(`/posts/${postId}`, post)
@@ -85,10 +74,6 @@ export const putPost = (postId, post) => {
     }
 }
 
-/**
- * 
- * @param {string} postId 
- */
 export const deletePost = (postId) => {
     return dispatch => {
         return axios.delete(`/posts/${postId}`)
@@ -98,11 +83,6 @@ export const deletePost = (postId) => {
     }
 }
 
-/**
- * 
- * @param {string} postId 
- * @param {string} option 
- */
 export const votePost = (postId, option) => {
     return dispatch => {
         return axios.post(`/posts/${postId}`, { option })

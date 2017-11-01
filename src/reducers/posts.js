@@ -1,4 +1,8 @@
-import { ADD_POST, SET_POSTS_ORDER } from '../constants/actionTypes'
+import { 
+    ADD_POST, 
+    REMOVE_POST,
+    SET_POSTS_ORDER,
+} from '../constants/actionTypes'
 
 const initialState = {
     posts: {},
@@ -12,6 +16,9 @@ const posts = (state = initialState, action) => {
 
         case SET_POSTS_ORDER:
             return setPostsOrder(state, action.order)
+
+        case REMOVE_POST:
+            return removePost(state, action.postId)
 
         default:
             return state
@@ -31,11 +38,14 @@ const setPostsOrder = (state, order) => ({
     order
 })
 
-/*const removePost = (state, postId) => {
-    let posts = { ...this.state.posts }
+const removePost = (state, postId) => {
+    let posts = { ...state.posts }
     delete posts[postId]
 
-    return { ...state, posts }
-}*/
+    return { 
+        ...state, 
+        posts 
+    }
+}
 
 export default posts

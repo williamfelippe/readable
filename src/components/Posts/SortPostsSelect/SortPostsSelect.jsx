@@ -24,7 +24,7 @@ const SortPostsSelect = ({ order, setPostsOrder }) => {
     )
 }
 
-const mapStateToProps = ({ posts }, props) => {
+const mapStateToProps = ({ posts }) => {
     return {
         order: posts.order
     }

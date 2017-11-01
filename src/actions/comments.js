@@ -17,8 +17,9 @@ export const updateComment = (comment) => ({
     comment
 })
 
-export const removeComment = (commentId) => ({
+export const removeComment = (postId, commentId) => ({
     type: REMOVE_COMMENT,
+    postId,
     commentId
 })
 
@@ -27,10 +28,6 @@ export const setLoading = (status) => ({
     status
 })
 
-/**
- * 
- * @param {string} postId 
- */
 export const getComments = (postId) => {
     return dispatch => {
         return axios.get(`/posts/${postId}/comments`)
@@ -44,10 +41,6 @@ export const getComments = (postId) => {
     }
 }
 
-/**
- * 
- * @param {string} commentId 
- */
 export const getComment = (commentId) => {
     return dispatch => {
         return axios.get(`/comments/${commentId}`)
@@ -57,10 +50,6 @@ export const getComment = (commentId) => {
     }
 }
 
-/**
- * 
- * @param {object} comment 
- */
 export const postComment = (comment) => {
     return dispatch => {
         return axios.post(`/comments`, comment)
@@ -70,11 +59,6 @@ export const postComment = (comment) => {
     }
 }
 
-/**
- * 
- * @param {string} commentId 
- * @param {object} comment 
- */
 export const putComment = (commentId, comment) => {
     return dispatch => {
         return axios.put(`/comments/${commentId}`, comment)
@@ -84,10 +68,6 @@ export const putComment = (commentId, comment) => {
     }
 }
 
-/**
- * 
- * @param {string} commentId 
- */
 export const deleteComment = (commentId) => {
     return dispatch => {
         return axios.delete(`/comments/${commentId}`)
@@ -97,10 +77,6 @@ export const deleteComment = (commentId) => {
     }
 }
 
-/**
- * 
- * @param {string} commentId 
- */
 export const voteComment = (commentId, option) => {
     return dispatch => {
         return axios.post(`/comments/${commentId}`, { option })
