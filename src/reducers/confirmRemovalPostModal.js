@@ -1,4 +1,7 @@
-import { OPEN_MODAL, CLOSE_MODAL } from '../constants/actionTypes'
+import { 
+    OPEN_CONFIRM_REMOVE_POST_MODAL, 
+    CLOSE_CONFIRM_REMOVE_POST_MODAL
+} from '../constants/actionTypes'
 
 const initialState = {
     open: false,
@@ -7,10 +10,10 @@ const initialState = {
 
 const confirmRemovalPostModal = (state = initialState, action) => {
     switch (action.type) {
-        case OPEN_MODAL:
+        case OPEN_CONFIRM_REMOVE_POST_MODAL:
             return openModal(state, action.postToDelete)
 
-        case CLOSE_MODAL:
+        case CLOSE_CONFIRM_REMOVE_POST_MODAL:
             return closeModal(state)
 
         default:

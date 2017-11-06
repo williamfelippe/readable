@@ -65,7 +65,7 @@ const mapStateToProps = (state, props) => {
     let posts = Object.values(state.posts.posts).filter(post => !post.deleted)
 
     return {
-        posts: (order !== '') ? _.orderBy(posts, order, 'asc') : posts,
+        posts: (order !== '') ? _.orderBy(posts, order, 'desc') : posts,
         order,
         categories
     }

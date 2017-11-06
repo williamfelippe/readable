@@ -2,14 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Button } from '../../Spectre'
 import {
-    posts as postsActions,
-    confirmRemovalPostModal as confirmRemovalPostModalActions
+    comments as commentsActions,
+    confirmRemovalCommentModal as confirmRemovalCommentModalActions
 } from '../../../actions'
 
-const RemovePostModal = ({ open, postToDelete, closeModal, deletePost }) => {
+const RemoveCommentModal = ({ open, commentToDelete, closeModal, deleteComment }) => {
 
-    const removePost = () => {
-        deletePost(postToDelete)
+    const removeComment = () => {
+        deleteComment(commentToDelete)
             .then((response) => {
                 closeModal()
             })
@@ -20,18 +20,18 @@ const RemovePostModal = ({ open, postToDelete, closeModal, deletePost }) => {
             <div className="modal-container" role="document">
                 <div className="modal-header">
                     <div className="modal-title h5">
-                        Remove post?
+                        Remove comment?
                     </div>
                 </div>
                 <div className="modal-body">
                     <div className="content">
                         <p>
-                            Are you sure do you want to remove this post?
+                            Are you sure do you want to remove this comment?
                         </p>
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <Button kind="primary" onClick={removePost}>
+                    <Button kind="primary" onClick={removeComment}>
                         Oh yeah
                     </Button>
                     <Button kind="link" onClick={closeModal}>
@@ -44,13 +44,13 @@ const RemovePostModal = ({ open, postToDelete, closeModal, deletePost }) => {
 }
 
 const mapStateToProps = state => ({
-    open: state.confirmRemovalPostModal.open,
-    postToDelete: state.confirmRemovalPostModal.postToDelete
+    open: state.confirmRemovalCommentModal.open,
+    commentToDelete: state.confirmRemovalCommentModal.commentToDelete
 })
 
 const mapDispatchToProps = dispatch => ({
-    deletePost: (postId) => dispatch(postsActions.deletePost(postId)),
-    closeModal: () => dispatch(confirmRemovalPostModalActions.closeModal())
+    deleteComment: (commentId) => dispatch(commentsActions.deleteComment(commentId)),
+    closeModal: () => dispatch(confirmRemovalCommentModalActions.closeModal())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemovePostModal)
+export default connect(mapStateToProps, mapDispatchToProps)(RemoveCommentModal)

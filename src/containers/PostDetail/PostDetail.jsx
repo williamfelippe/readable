@@ -7,18 +7,6 @@ import { UP_VOTE, DOWN_VOTE } from '../../constants/voteTypes'
 import formatDate from '../../utils/formatDate'
 import './style.css'
 
-const comment = {
-    id: '6ni6ok3ym7mf1p33lnez',
-    timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
-    author: 'José',
-    category: 'redux',
-    voteScore: -5,
-    deleted: false,
-    parentId: ''
-}
-
 class PostDetail extends Component {
 
     componentDidMount() {
@@ -29,56 +17,48 @@ class PostDetail extends Component {
         getComments(postId)
     }
 
-    /**
-     * 
-     * 
-     * @param {string} option 
-     * @memberof PostDetail
-     */
-    vote(option) {
-        const { votePost, match } = this.props
-        const { postId } = match.params
-
-        votePost(postId, option)
-    }
-
     render() {
-        const { votePost, match } = this.props
+        const { votePost, match, post } = this.props
         const { postId } = match.params
-        const { timestamp, title, body, author, category, voteScore } = comment
 
         return (
-            <Container grid="md">
+            (post) ? <Container grid="md">
                 <Columns>
                     <Col xs={12}>
                         <div className="postDetail">
                             <h1>
-                                {title} <span className="label label-primary postDetail__category">
-                                    {category}
+                                {post.title} <span className="label label-primary postDetail__category">
+                                    {post.category}
                                 </span>
                             </h1>
 
                             <h4>
-                                Posted by {author} <span className="postDetail__date">
-                                    {formatDate(timestamp)}
+                                Posted by {post.author} <span className="postDetail__date">
+                                    {formatDate(post.timestamp)}
                                 </span>
                             </h4>
 
                             <div className="postDetail__info">
                                 <p className="postDetail__info__body">
-                                    {body}
+                                    {post.body}
                                 </p>
 
                                 <div className="postDetail__info__voteButtons">
-                                    <Button kind="link" className="postDetail__info__voteButtons__voteIcon"
-                                        onClick={() => votePost(UP_VOTE)}>
+                                    <Button 
+                                        kind="link" 
+                                        className="postDetail__info__voteButtons__voteIcon"
+                                        onClick={() => votePost(postId, UP_VOTE)}>
                                         <Icon icon="arrow-up" />
                                     </Button>
+
                                     <p className="postDetail__info__voteButtons__voteScore">
-                                        {voteScore}
+                                        {post.voteScore}
                                     </p>
-                                    <Button kind="link" className="postDetail__info__voteButtons__voteIcon"
-                                        onClick={() => votePost(DOWN_VOTE)}>
+
+                                    <Button 
+                                        kind="link" 
+                                        className="postDetail__info__voteButtons__voteIcon"
+                                        onClick={() => votePost(postId, DOWN_VOTE)}>
                                         <Icon icon="arrow-down" />
                                     </Button>
                                 </div>
@@ -88,15 +68,18 @@ class PostDetail extends Component {
                         </div>
                     </Col>
                 </Columns>
-            </Container>
-
+            </Container> : null
         )
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = ({ posts }, {match}) => {
+    const { postId } = match.params
 
-})
+    return {
+        post: posts.posts[postId]
+    }
+}
 
 const mapDispatchToProps = dispatch => ({
     getPost: (postId) => dispatch(postsActions.getPost(postId)),

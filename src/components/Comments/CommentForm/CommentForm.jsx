@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Button, Input, TextArea, Icon } from '../../Spectre'
 import { comments as commentsActions } from '../../../actions/index'
@@ -68,10 +67,6 @@ class CommentForm extends Component {
             </form>
         )
     }
-}
-
-CommentForm.propTypes = {
-    postComment: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => ({

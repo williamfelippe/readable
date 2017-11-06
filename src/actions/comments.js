@@ -64,6 +64,7 @@ export const putComment = (commentId, comment) => {
         return axios.put(`/comments/${commentId}`, comment)
             .then(response => {
                 dispatch(updateComment(response.data))
+                return response
             })
     }
 }
@@ -72,7 +73,8 @@ export const deleteComment = (commentId) => {
     return dispatch => {
         return axios.delete(`/comments/${commentId}`)
             .then(response => {
-                dispatch(updateComment(response.data))
+                const comment = response.data
+                dispatch(removeComment(comment.parentId, comment.id))
             })
     }
 }

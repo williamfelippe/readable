@@ -78,7 +78,8 @@ export const deletePost = (postId) => {
     return dispatch => {
         return axios.delete(`/posts/${postId}`)
             .then(response => {
-                dispatch(addPost(response.data))
+                dispatch(removePost(postId))
+                return response
             })
     }
 }

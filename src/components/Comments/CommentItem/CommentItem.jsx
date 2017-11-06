@@ -3,14 +3,31 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Button, Icon } from '../../Spectre/index'
 import { UP_VOTE, DOWN_VOTE } from '../../../constants/voteTypes'
-import { comments as commentsActions } from '../../../actions/index'
+import { 
+    comments as commentsActions, 
+    confirmRemovalCommentModal as confirmRemovalCommentModalActions,
+    editCommentsModal as editCommentsModalActions 
+} from '../../../actions/index'
 import formatDate from '../../../utils/formatDate'
 import getInitials from '../../../utils/getInitials'
 import './style.css'
 
-const CommentItem = ({ comment, voteComment, deleteComment }) => {
+const CommentItem = ({ 
+    comment, 
+    voteComment, 
+    deleteComment, 
+    editComment, 
+    confirmRemoval 
+}) => {
 
-    const { id, author, body, timestamp, voteScore } = comment
+    const { 
+        id, 
+        author, 
+        body, 
+        timestamp, 
+        voteScore, 
+        parentId 
+    } = comment
 
     return (
         <div className="tile commentItem">
@@ -33,7 +50,7 @@ const CommentItem = ({ comment, voteComment, deleteComment }) => {
                             kind="link"
                             className="tooltip"
                             data-tooltip="Edit comment"
-                            onClick={() => console.log('Editar')}>
+                            onClick={() => editComment(id, parentId)}>
                             <Icon icon="edit" />
                         </Button>
                     </li>
@@ -42,7 +59,7 @@ const CommentItem = ({ comment, voteComment, deleteComment }) => {
                             kind="link"
                             className="tooltip"
                             data-tooltip="Delete comment"
-                            onClick={() => deleteComment(id)}>
+                            onClick={() => confirmRemoval(id)}>
                             <Icon icon="delete" />
                         </Button>
                     </li>
@@ -81,8 +98,9 @@ CommentItem.propTypes = {
 }
 
 const mapDispatchToProps = dispatch => ({
-    deleteComment: (commentId) => dispatch(commentsActions.deleteComment(commentId)),
-    voteComment: (commentId) => dispatch(commentsActions.voteComment(commentId))
+    voteComment: (commentId) => dispatch(commentsActions.voteComment(commentId)),
+    confirmRemoval: (commentId) => dispatch(confirmRemovalCommentModalActions.openModal(commentId)),
+    editComment: (commentId, parentId) => dispatch(editCommentsModalActions.openModal(commentId, parentId))
 })
 
 export default connect(null, mapDispatchToProps)(CommentItem)

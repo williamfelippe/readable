@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Header, Footer } from './components/Global'
 import { RemovePostModal } from './components/Posts'
+import { RemoveCommentModal, CommentEditModal } from './components/Comments'
 import { Home, Category, PostDetail, NewPost, NoMatch } from './containers'
 import 'spectre.css/dist/spectre.css'
 import 'spectre.css/dist/spectre-icons.css'
@@ -10,14 +11,9 @@ import './assets/styles/index.css'
 class App extends Component {
 
     componentDidUpdate(prevProps) {
-
         const prevLocation = prevProps.location
         const currentLocation = this.props.location
 
-        /**
-         * Retorna o rolagem da página para o topo ao
-         * trocar de rota
-         */
         if (currentLocation !== prevLocation) {
             window.scrollTo(0, 0)
         }
@@ -31,7 +27,10 @@ class App extends Component {
 
                     <main>
                         <Component {...props} />
+
                         <RemovePostModal />
+                        <RemoveCommentModal />
+                        <CommentEditModal />
                     </main>
 
                     <Footer />
