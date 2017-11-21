@@ -119,7 +119,13 @@ class NewPost extends Component {
     }
 
     render() {
-        const { author, category, title, body, formErrors } = this.state
+        const { 
+            author, 
+            category, 
+            title, 
+            body, 
+            formErrors 
+        } = this.state
 
         const { match, categories } = this.props
         const { postId } = match.params

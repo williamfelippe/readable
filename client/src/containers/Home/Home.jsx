@@ -19,7 +19,6 @@ class Home extends Component {
         const {
             categories,
             posts
-            /*empty, loading, error,*/
         } = this.props
 
         return (

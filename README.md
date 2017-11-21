@@ -2,18 +2,9 @@
 
 Este é o projeto final da parte React & Redux do curso Nanodegree React da Udacity.
 
-# Bibliotecas/tecnologias usadas
+# Como executar
 
-Para o desenvolvimento do código dessa aplicação foi utilizado as seguintes tecnologias e bibliotecas:
+No repositório encontram-se duas pastas (client e server). Para testar o projeto, primeiramente execute o comando
+`yarn install`, seguido do comando `yarn start` dentro da pasta `server`. Em seguida realize o mesmo procedimento na pasta `client`. Pronto! O projeto Readable já está executando.
 
-* React
-* React Router
-* Redux
-* React Redux
-* Redux Thunk
-* Redux Promise
-* React Materialize
-
-# Execução
-
-Para executá-la, basta utilizar o comando `npm install` seguido por `npm start`. O mesmo pode ser feito utilizando Yarn. Basta trocar o comando npm por yarn.
+Mais detalhes sobre o cliente e servidor podem ser encontrados no arquivo `README` dentro da sua respectiva pasta.
