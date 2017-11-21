@@ -1,18 +1,20 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, TextArea, Icon } from '../../Spectre'
 import {
     comments as commentsActions,
-    editCommentsModal as editCommentsModalActions 
+    editCommentsModal as editCommentsModalActions
 } from '../../../actions'
+import Validator from 'validatorjs'
 
 class CommentEditModal extends Component {
-    
+
     constructor() {
         super()
         this.state = {
             body: '',
-            editing: false
+            editing: false,
+            formErrors: {}
         }
     }
 
@@ -24,14 +26,14 @@ class CommentEditModal extends Component {
         const { comments, open } = props
         const { editing } = this.state
 
-        if(comments && open && !editing) {
+        if (comments && open && !editing) {
             const { commentToEdit, postWithComment } = props
             const comment = comments[postWithComment][commentToEdit]
 
-            if(comment) {
-                this.setState({ 
-                    body: comment.body, 
-                    editing: true 
+            if (comment) {
+                this.setState({
+                    body: comment.body,
+                    editing: true
                 })
             }
         }
@@ -40,19 +42,40 @@ class CommentEditModal extends Component {
     onSubmit(event) {
         event.preventDefault()
 
-        const { commentToEdit, updateComment } = this.props
-        const { body } = this.state
+        if (this.isFormValid()) {
+            const { commentToEdit, updateComment } = this.props
+            const { body } = this.state
 
-        updateComment(commentToEdit, { body })
-            .then(() => {
-                const { closeModal } = this.props
-                closeModal()
-            })
+            updateComment(commentToEdit, { body })
+                .then(() => {
+                    const { closeModal } = this.props
+                    closeModal()
+                })
+        }
+    }
+
+    isFormValid() {
+        const data = {
+            comment: this.state.body
+        }
+
+        const rules = {
+            comment: 'required'
+        }
+
+        const validation = new Validator(data, rules)
+
+        if (validation.fails()) {
+            this.setState({ formErrors: validation.errors.all() })
+            return false
+        }
+
+        return true
     }
 
     render() {
         const { open } = this.props
-        const { body } = this.state
+        const { body, formErrors } = this.state
 
         return (
             <div className={`modal modal-sm ${open ? 'active' : ''}`}>
@@ -64,11 +87,15 @@ class CommentEditModal extends Component {
                     </div>
                     <div className="modal-body">
                         <div className="content">
-                            <form className="commentForm" onSubmit={this.onSubmit.bind(this)}>
+                            <form 
+                                className="commentForm" 
+                                onSubmit={this.onSubmit.bind(this)}>
                                 <TextArea
                                     id="comment"
                                     inputClassName="commentForm__textArea"
                                     value={body}
+                                    errors={formErrors}
+                                    rules="required"
                                     placeholder="Write a comment..."
                                     onChangeValue={(body) => this.setState({ body })} />
 

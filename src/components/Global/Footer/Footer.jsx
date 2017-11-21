@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Columns, Col } from '../../Spectre'
+import UdacityLogo from '../../../assets/images/udacity_logo.png'
 import './style.css'
 
 const Footer = () => {
@@ -8,7 +9,10 @@ const Footer = () => {
             <Container grid="lg">
                 <Columns>
                     <Col xl={8}>
-                    
+                        <img 
+                            src={UdacityLogo} 
+                            alt="Udacity Logo" 
+                            className="footer__udacityLogo" />
                     </Col>
 
                     <Col xl={4}>

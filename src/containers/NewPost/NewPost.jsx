@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { posts as postsActions } from '../../actions'
+import {
+    posts as postsActions,
+    categories as categoriesActions
+} from '../../actions'
 import {
     Container,
     Columns,
@@ -12,6 +15,7 @@ import {
     TextArea,
     Select
 } from '../../components/Spectre'
+import Validator from 'validatorjs'
 import uuidv4 from 'uuid/v4'
 import './style.css'
 
@@ -23,19 +27,23 @@ class NewPost extends Component {
             author: '',
             category: '',
             title: '',
-            body: ''
+            body: '',
+            formErrors: {}
         }
     }
 
     componentDidMount() {
+        this.populateCategories()
         this.populatePost()
     }
 
-    /**
-     * 
-     * 
-     * @memberof NewPost
-     */
+    populateCategories() {
+        const { categories, getCategories } = this.props
+        if (categories.length <= 0) {
+            getCategories()
+        }
+    }
+
     populatePost() {
         const { match, getPost } = this.props
         const { postId } = match.params
@@ -54,39 +62,50 @@ class NewPost extends Component {
         }
     }
 
-    /**
-     * 
-     * 
-     * @param {object} event 
-     * @memberof NewPost
-     */
-    handleSubmit(event) {
+    onSubmit(event) {
         event.preventDefault()
-        this.sendPost()
+
+        if (this.isFormValid()) {
+            this.sendPost()
+        }
     }
 
-    /**
-     * 
-     * 
-     * @memberof NewPost
-     */
+    isFormValid() {
+        const { title, author, body, category } = this.state
+        const data = {
+            title,
+            author,
+            category,
+            message: body
+        }
+
+        const rules = {
+            title: 'required',
+            author: 'required',
+            message: 'required',
+            category: 'required'
+        }
+
+        const validation = new Validator(data, rules)
+
+        if (validation.fails()) {
+            this.setState({ formErrors: validation.errors.all() })
+            return false
+        }
+
+        return true
+    }
+
     sendPost() {
         const { match, history } = this.props
         const { postId } = match.params
 
         const { title, body } = this.state
 
-        /**
-         * 
-         */
         if (postId && postId !== undefined) {
             const { updatePost } = this.props
             updatePost(postId, { title, body })
         }
-
-        /**
-         * 
-         */
         else {
             const id = uuidv4()
             const timestamp = Date.now()
@@ -96,10 +115,11 @@ class NewPost extends Component {
             addPost({ id, timestamp, author, category, title, body })
                 .then(() => history.push(`/post/edit/${id}`))
         }
+
     }
 
     render() {
-        const { author, category, title, body } = this.state
+        const { author, category, title, body, formErrors } = this.state
 
         const { match, categories } = this.props
         const { postId } = match.params
@@ -119,12 +139,11 @@ class NewPost extends Component {
                             </h1>
 
                             <p className="newpost__description">
-                                Aliquam elementum malesuada lorem nec vehicula. Morbi nec diam tortor.
-                                Fusce pulvinar dui non suscipit bibendum.
+                                Start writing something. It'd be incredible if you could share some experiences with us
                             </p>
 
                             <form
-                                onSubmit={this.handleSubmit.bind(this)}
+                                onSubmit={this.onSubmit.bind(this)}
                                 className="newpost__form">
 
                                 <Input
@@ -132,6 +151,8 @@ class NewPost extends Component {
                                     placeholder="Title"
                                     inputClassName="newpost__input"
                                     value={title}
+                                    errors={formErrors}
+                                    rules="required"
                                     onChangeValue={(title) => this.setState({ title })} />
 
                                 {
@@ -140,6 +161,8 @@ class NewPost extends Component {
                                         id="author"
                                         placeholder="Author"
                                         value={author}
+                                        errors={formErrors}
+                                        rules="required"
                                         inputClassName="newpost__input"
                                         onChangeValue={(author) => this.setState({ author })} />
                                 }
@@ -147,6 +170,8 @@ class NewPost extends Component {
                                 <TextArea
                                     id="message"
                                     value={body}
+                                    errors={formErrors}
+                                    rules="required"
                                     inputClassName="newpost__input newpost__input--area"
                                     placeholder="Message"
                                     onChangeValue={(body) => this.setState({ body })} />
@@ -154,12 +179,14 @@ class NewPost extends Component {
                                 {
                                     !isEditing &&
                                     <Select
+                                        id="category"
                                         value={category}
+                                        errors={formErrors}
                                         placeholder="Choose a category"
                                         options={categories.map(category => {
-                                            return { 
-                                                value: category.path, 
-                                                text: category.name 
+                                            return {
+                                                value: category.path,
+                                                text: category.name
                                             }
                                         })}
                                         onSelectValue={(category) => this.setState({ category })} />
@@ -188,7 +215,8 @@ const mapStateToProps = ({ categories }) => ({
 const mapDispatchToProps = dispatch => ({
     getPost: (postId) => dispatch(postsActions.getPost(postId)),
     addPost: (post) => dispatch(postsActions.postPost(post)),
-    updatePost: (postId, post) => dispatch(postsActions.putPost(postId, post))
+    updatePost: (postId, post) => dispatch(postsActions.putPost(postId, post)),
+    getCategories: () => dispatch(categoriesActions.getCategories())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost)

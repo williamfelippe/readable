@@ -7,6 +7,7 @@ import './style.css'
 const SortPostsSelect = ({ order, setPostsOrder }) => {
     return (
         <Select
+            id="order"
             value={order}
             placeholder="Sort by"
             options={[

@@ -15,7 +15,11 @@ const NoMatch = () => {
                         Ops... This page does not exist
                     </p>
 
-                    <LinkButton to="/" kind="link" size="lg" className="nomatch__button">
+                    <LinkButton 
+                        to="/" 
+                        kind="link" 
+                        size="lg" 
+                        className="nomatch__button">
                         Voltar
                     </LinkButton>
                 </Col>

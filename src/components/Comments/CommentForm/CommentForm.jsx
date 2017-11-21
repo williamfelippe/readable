@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Input, TextArea, Icon } from '../../Spectre'
 import { comments as commentsActions } from '../../../actions/index'
+import Validator from 'validatorjs'
 import uuidv4 from 'uuid/v4'
 import './style.css'
 
@@ -11,35 +12,64 @@ class CommentForm extends Component {
         super(props)
         this.state = {
             author: '',
-            body: ''
+            body: '',
+            formErrors: {}
         }
     }
 
     onSubmit(event) {
         event.preventDefault()
 
-        const { postId, postComment } = this.props
-        const { author, body } = this.state
+        if (this.isFormValid()) {
+            const { postId, postComment } = this.props
+            const { author, body } = this.state
 
-        const comment = {
-            id: uuidv4(),
-            timestamp: Date.now(),
-            body,
+            const comment = {
+                id: uuidv4(),
+                timestamp: Date.now(),
+                body,
+                author,
+                parentId: postId
+            }
+
+            postComment(comment)
+                .then(() => {
+                    this.setState({
+                        author: '',
+                        body: ''
+                    })
+                })
+        }
+    }
+
+    isFormValid() {
+        const { title, author, body, category } = this.state
+        const data = {
+            title,
             author,
-            parentId: postId
+            category,
+            message: body
         }
 
-        postComment(comment)
-            .then(() => {
-                this.setState({
-                    author: '', 
-                    body: ''
-                })
-            })
+        const rules = {
+            title: 'required',
+            author: 'required',
+            message: 'required',
+            category: 'required'
+        }
+
+        const validation = new Validator(data, rules)
+
+        if (validation.fails()) {
+            this.setState({ formErrors: validation.errors.all() })
+            return false
+        }
+
+        return true
     }
 
     render() {
-        const { author, body } = this.state
+        const { author, body, formErrors } = this.state
 
         return (
             <form className="commentForm"
@@ -49,12 +79,16 @@ class CommentForm extends Component {
                     inputClassName="commentForm__input"
                     placeholder="What's your name?"
                     value={author}
+                    errors={formErrors}
+                    rules="required"
                     onChangeValue={(author) => this.setState({ author })} />
 
                 <TextArea
                     id="comment"
                     inputClassName="commentForm__textArea"
                     value={body}
+                    errors={formErrors}
+                    rules="required"
                     placeholder="Write a comment..."
                     onChangeValue={(body) => this.setState({ body })} />
 

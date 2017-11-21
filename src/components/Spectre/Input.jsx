@@ -1,24 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import withValidation from '../../utils/withValidation'
 
 const Input = ({
     id,
-    value,
-    label,
-    type,
-    placeholder,
     labelClassName,
     inputClassName,
+    type,
+    label,
+    value,
+    placeholder,
     onChangeValue,
+    invalidate,
+    validate,
+    rules,
+    error,
+    errors,
     ...rest
 }) => {
 
-    const onChange = event => {
+    const onBlur = () => {
+        validate()
+    }
+
+    const onFocus = () => {
+        invalidate()
+    }
+
+    const onChange = (event) => {
         onChangeValue(event.target.value)
     }
 
     return (
-        <div className="form-group">
+        <div className={`form-group ${error ? 'has-error' : ''}`}>
             {
                 label && <label className={`form-label ${labelClassName}`} for={id}>
                     {label}
@@ -30,8 +44,15 @@ const Input = ({
                 className={`form-input ${inputClassName}`}
                 type={type}
                 value={value}
+                onBlur={onBlur}
+                onFocus={onFocus}
                 placeholder={placeholder}
-                onChange={onChange} />
+                onChange={onChange}
+                {...rest} />
+
+            <p className="form-input-hint">
+                {error}
+            </p>
         </div>
     )
 }
@@ -42,7 +63,8 @@ Input.defaultProps = {
     type: 'text',
     placeholder: '',
     labelClassName: '',
-    inputClassName: ''
+    inputClassName: '',
+    rules: 'required'
 }
 
 Input.propTypes = {
@@ -51,6 +73,7 @@ Input.propTypes = {
         PropTypes.number
     ]).isRequired,
     value: PropTypes.string.isRequired,
+    errors: PropTypes.object.isRequired,
     onChangeValue: PropTypes.func.isRequired,
     label: PropTypes.string,
     type: PropTypes.string,
@@ -59,4 +82,4 @@ Input.propTypes = {
     inputClassName: PropTypes.string
 }
 
-export default Input
+export default withValidation(Input)

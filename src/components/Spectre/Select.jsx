@@ -1,18 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import withValidation from '../../utils/withValidation'
 
 const Select = ({
+    id,
     options,
     value,
     placeholder,
     className,
     inputClassName,
     onSelectValue,
+    invalidate,
+    validate,
+    error,
+    errors,
     ...rest
 }) => {
 
+    const onSelect = () => {
+        validate()
+    }
+
     const onChange = event => {
         onSelectValue(event.target.value)
+        invalidate()
     }
 
     const optionsList = options.map(({ value, text }, key) => {
@@ -24,14 +35,19 @@ const Select = ({
     })
 
     return (
-        <div className={`form-group ${className}`}>
+        <div className={`form-group ${className} ${error ? 'has-error' : ''}`}>
             <select className={`form-select ${inputClassName}`} value={value}
-                onChange={onChange}>
+                onChange={onChange}
+                onSelect={onSelect}>
                 <option value="">
                     {placeholder}
                 </option>
                 {optionsList}
             </select>
+
+            <p className="form-input-hint">
+                {error}
+            </p>
         </div>
     )
 }
@@ -41,14 +57,17 @@ Select.defaultProps = {
     options: [],
     placeholder: '',
     className: '',
-    inputClassName: ''
+    inputClassName: '',
+    errors: {}
 }
 
 Select.propTypes = {
+    id: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.string,
         text: PropTypes.string
     })).isRequired,
+    errors: PropTypes.object,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     onSelectValue: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
@@ -56,4 +75,4 @@ Select.propTypes = {
     inputClassName: PropTypes.string
 }
 
-export default Select
+export default withValidation(Select)

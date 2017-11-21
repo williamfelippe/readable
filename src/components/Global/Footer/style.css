@@ -10,3 +10,5 @@
     text-transform: uppercase;
     color: #fff;
     float: right; }
+  .footer .footer__udacityLogo {
+    max-width: 250px; }

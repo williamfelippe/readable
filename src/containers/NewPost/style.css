@@ -11,9 +11,7 @@
     font-size: 18px;
     text-align: justify;
     margin: 40px 0; }
-  .newpost .newpost__input {
-    margin-bottom: 20px; }
-    .newpost .newpost__input.newpost__input--area {
-      resize: none; }
+  .newpost .newpost__input.newpost__input--area {
+    resize: none; }
   .newpost .newpost_button {
     margin-top: 40px; }
