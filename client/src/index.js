@@ -34,7 +34,7 @@ const logger = createLogger({
  */
 const store = createStore(
     reducers,
-    compose(applyMiddleware(logger, promise, thunk))
+    compose(applyMiddleware(promise, thunk, logger))
 )
 
 ReactDOM.render(

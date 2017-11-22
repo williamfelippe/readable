@@ -43,19 +43,15 @@ class CommentForm extends Component {
     }
 
     isFormValid() {
-        const { title, author, body, category } = this.state
+        const { author, body } = this.state
         const data = {
-            title,
             author,
-            category,
-            message: body
+            comment: body
         }
 
         const rules = {
-            title: 'required',
             author: 'required',
-            message: 'required',
-            category: 'required'
+            comment: 'required'
         }
 
         const validation = new Validator(data, rules)

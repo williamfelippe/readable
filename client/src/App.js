@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
+import { DashboardRoute } from './components/Global/'
 import { Route, Switch } from 'react-router-dom'
-import { Header, Footer } from './components/Global'
-import { RemovePostModal } from './components/Posts'
-import { RemoveCommentModal, CommentEditModal } from './components/Comments'
 import { Home, Category, PostDetail, NewPost, NoMatch } from './containers'
 import 'spectre.css/dist/spectre.css'
 import 'spectre.css/dist/spectre-icons.css'
@@ -20,31 +18,13 @@ class App extends Component {
     }
 
     render() {
-        const DashboardRoute = ({ component: Component, ...rest }) => (
-            <Route {...rest} render={props => (
-                <div className="app">
-                    <Header />
-
-                    <main>
-                        <Component {...props} />
-
-                        <RemovePostModal />
-                        <RemoveCommentModal />
-                        <CommentEditModal />
-                    </main>
-
-                    <Footer />
-                </div>
-            )} />
-        )
-
         return (
             <Switch>
                 <DashboardRoute exact path='/' component={Home} />
                 <DashboardRoute exact path='/:category' component={Category} />
                 <DashboardRoute exact path='/post/new' component={NewPost} />
                 <DashboardRoute exact path='/post/edit/:postId' component={NewPost} />
-                <DashboardRoute path='/post/:postId' component={PostDetail} />
+                <DashboardRoute path='/:category/:postId' component={PostDetail} />
 
                 <Route component={NoMatch} />
             </Switch>

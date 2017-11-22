@@ -59,7 +59,7 @@ class PostItem extends Component {
                     </p>
 
                     <p className="tile-subtitle">
-                        <NavLink exact to={`/post/${id}`} className="postItem__body">
+                        <NavLink exact to={`/${category}/${id}`} className="postItem__body">
                             {body}
                         </NavLink>
                     </p>

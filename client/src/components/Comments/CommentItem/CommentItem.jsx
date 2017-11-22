@@ -68,7 +68,7 @@ const CommentItem = ({
                             kind="link"
                             className="tooltip"
                             data-tooltip="Up vote comment"
-                            onClick={() => voteComment(UP_VOTE)}>
+                            onClick={() => voteComment(id, UP_VOTE)}>
                             <Icon icon="arrow-up" />
                         </Button>
                     </li>
@@ -82,7 +82,7 @@ const CommentItem = ({
                             kind="link"
                             className="tooltip"
                             data-tooltip="Down vote comment"
-                            onClick={() => voteComment(DOWN_VOTE)}>
+                            onClick={() => voteComment(id, DOWN_VOTE)}>
                             <Icon icon="arrow-down" />
                         </Button>
                     </li>
@@ -98,7 +98,7 @@ CommentItem.propTypes = {
 }
 
 const mapDispatchToProps = dispatch => ({
-    voteComment: (commentId) => dispatch(commentsActions.voteComment(commentId)),
+    voteComment: (commentId, option) => dispatch(commentsActions.voteComment(commentId, option)),
     confirmRemoval: (commentId) => dispatch(confirmRemovalCommentModalActions.openModal(commentId)),
     editComment: (commentId, parentId) => dispatch(editCommentsModalActions.openModal(commentId, parentId))
 })
