@@ -112,19 +112,27 @@ class NewPost extends Component {
             const { author, category } = this.state
 
             const { addPost } = this.props
-            addPost({ id, timestamp, author, category, title, body })
-                .then(() => history.push(`/post/edit/${id}`))
+            addPost({
+                id,
+                timestamp,
+                author,
+                category,
+                title,
+                body
+            }).then(() => {
+                history.push('/')
+            })
         }
 
     }
 
     render() {
-        const { 
-            author, 
-            category, 
-            title, 
-            body, 
-            formErrors 
+        const {
+            author,
+            category,
+            title,
+            body,
+            formErrors
         } = this.state
 
         const { match, categories } = this.props

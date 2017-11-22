@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { 
-    ADD_POST, 
+import {
+    ADD_POST,
     REMOVE_POST,
-    SET_POSTS_ORDER 
+    SET_POSTS_ORDER
 } from '../constants/actionTypes'
 
 export const addPost = (post) => ({
@@ -25,7 +25,7 @@ export const getPosts = () => {
         return axios.get('/posts')
             .then(response => {
                 const posts = response.data
-                for(const post of posts) {
+                for (const post of posts) {
                     dispatch(addPost(post))
                 }
             })
@@ -37,7 +37,7 @@ export const getPostsByCategory = (categoryName) => {
         return axios.get(`/${categoryName}/posts`)
             .then(response => {
                 const posts = response.data
-                for(const post of posts) {
+                for (const post of posts) {
                     dispatch(addPost(post))
                 }
             })
@@ -48,7 +48,12 @@ export const postPost = (post) => {
     return dispatch => {
         return axios.post('/posts', post)
             .then(response => {
-                dispatch(addPost(response.data))
+                const { data } = response
+                dispatch(addPost(data))
+                return data
+            })
+            .catch(error => {
+                throw error
             })
     }
 }
@@ -61,6 +66,9 @@ export const getPost = (postId) => {
                 dispatch(addPost(post))
 
                 return post
+            })
+            .catch(error => {
+                throw error
             })
     }
 }
