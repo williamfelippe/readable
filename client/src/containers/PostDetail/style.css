@@ -14,8 +14,7 @@
 
 .postDetail .postDetail__info {
   display: flex;
-  flex-direction: row;
-  margin-bottom: 25px; }
+  flex-direction: row; }
   .postDetail .postDetail__info .postDetail__info__body {
     margin: 40px 0;
     flex: 8; }
@@ -28,3 +27,6 @@
       font-weight: 700;
       text-align: center;
       margin: 0; }
+
+.postDetail .postDetail__actions {
+  margin-bottom: 40px; }
