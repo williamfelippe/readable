@@ -1,0 +1,15 @@
+.postActions {
+  margin: 0;
+  list-style: none; }
+  .postActions .postActions__item {
+    display: inline-block; }
+    .postActions .postActions__item:not(:last-child) {
+      margin-right: 20px; }
+    .postActions .postActions__item:last-child {
+      float: right; }
+    .postActions .postActions__item .postActions__item__label {
+      border-radius: 20px;
+      padding: 5px 10px;
+      margin-right: 20px;
+      font-size: 12px;
+      font-weight: 700; }
