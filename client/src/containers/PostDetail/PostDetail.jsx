@@ -5,7 +5,8 @@ import { PostActions, PostDeleted } from '../../components/Posts'
 import { UP_VOTE, DOWN_VOTE } from '../../constants/voteTypes'
 import {
     posts as postsActions,
-    comments as commentsActions
+    comments as commentsActions,
+    alert as alertActions
 } from '../../actions'
 import {
     Container,
@@ -32,8 +33,6 @@ class PostDetail extends Component {
 
         getPost(postId)
             .then((post) => {
-                console.log('POST', post)
-
                 if (!post) {
                     this.setState({ postDeleted: true })
                     return
@@ -42,6 +41,14 @@ class PostDetail extends Component {
                 this.setState({ postDeleted: false })
                 getComments(postId)
             })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { post, showAlert, history } = nextProps
+        if(!post) {
+            showAlert('Post was deleted')
+            history.push('/')
+        }
     }
 
     renderElements() {
@@ -140,7 +147,8 @@ const mapStateToProps = ({ posts, comments }, { match }) => {
 const mapDispatchToProps = dispatch => ({
     getPost: (postId) => dispatch(postsActions.getPost(postId)),
     votePost: (postId, option) => dispatch(postsActions.votePost(postId, option)),
-    getComments: (postId) => dispatch(commentsActions.getComments(postId))
+    getComments: (postId) => dispatch(commentsActions.getComments(postId)),
+    showAlert: (message) => dispatch(alertActions.showAlert(message))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

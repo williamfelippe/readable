@@ -4,6 +4,7 @@ import comments from './comments'
 import confirmRemovalPostModal from './confirmRemovalPostModal'
 import confirmRemovalCommentModal from './confirmRemovalCommentModal'
 import editCommentsModal from './editCommentsModal'
+import alert from './alert'
 
 export {
     posts,
@@ -11,5 +12,6 @@ export {
     comments,
     confirmRemovalPostModal,
     confirmRemovalCommentModal,
-    editCommentsModal
+    editCommentsModal,
+    alert
 }

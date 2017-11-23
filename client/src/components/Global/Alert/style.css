@@ -1,0 +1,13 @@
+.alert {
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  padding: 10px 20px 10px 10px !important;
+  margin-left: -49%;
+  background: #ed9719 !important;
+  border: none !important;
+  max-width: 98%; }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import { Header, Footer } from '../'
+import { Header, Footer, Alert } from '../'
 import { RemovePostModal } from '../../Posts'
 import { RemoveCommentModal, CommentEditModal } from '../../Comments'
 
@@ -15,6 +15,7 @@ const DashboardRoute = ({ component: Component, ...rest }) => (
                 <RemovePostModal />
                 <RemoveCommentModal />
                 <CommentEditModal />
+                <Alert />
             </main>
 
             <Footer />

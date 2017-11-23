@@ -6,9 +6,6 @@ export const setCategories = (categories) => ({
     categories
 })
 
-/**
- * 
- */
 export const getCategories = () => {
     return dispatch => {
         return axios.get(`/categories`)

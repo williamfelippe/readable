@@ -4,6 +4,7 @@ import CategoriesList from './CategoriesList/CategoriesList'
 import EmptyState from './EmptyState/EmptyState'
 import ErrorState from './ErrorState/ErrorState'
 import DashboardRoute from './DashboardRoute/DashboardRoute'
+import Alert from './Alert/Alert'
 
 export {
     Header,
@@ -11,5 +12,6 @@ export {
     CategoriesList,
     EmptyState,
     ErrorState,
-    DashboardRoute
+    DashboardRoute,
+    Alert
 }
