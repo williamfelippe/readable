@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _ from 'lodash'
 import {
     ADD_POST,
     REMOVE_POST,
@@ -63,9 +64,13 @@ export const getPost = (postId) => {
         return axios.get(`/posts/${postId}`)
             .then(response => {
                 const post = response.data
-                dispatch(addPost(post))
 
-                return post
+                if (!_.isEmpty(post)) {
+                    dispatch(addPost(post))
+                    return post
+                }
+
+                return null
             })
             .catch(error => {
                 throw error
